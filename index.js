@@ -67,6 +67,7 @@ function addUserToDb(userName,displayName,password,callback){
     }
     else {
       console.log("i think im connected :)");
+      alert("connected to the db: ")
     }
   });
 
