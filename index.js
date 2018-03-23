@@ -3,11 +3,11 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 const path = require('path');
-var pg = require("pg");
+const { Client } = require('pg');
 
 var port = process.env.PORT || 5000;
 
-const connectionString = "postgres://tukubqgepkcvtn:a621abf6cdfaaf67344840e60ae648a52ea542d59007c21828b1699c31c61c1b@ec2-54-235-146-51.compute-1.amazonaws.com:5432/d5jgh9e9r7rs3k";
+//const connectionString = "dbname=d5jgh9e9r7rs3k host=ec2-54-235-146-51.compute-1.amazonaws.com port=5432 user=tukubqgepkcvtn password=a621abf6cdfaaf67344840e60ae648a52ea542d59007c21828b1699c31c61c1b sslmode=require";
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -47,10 +47,16 @@ function signUp(req,res){
 			response.status(200).json(result[0]);
 		}
 	});
+
 }
 
 function addUserToDb(userName,displayName,password,callback){
-  var client = new pg.Client(connectionString);
+
+
+  const client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  });
 
   client.connect(function(err){
     if(err){
@@ -61,7 +67,25 @@ function addUserToDb(userName,displayName,password,callback){
     else {
       console.log("i think im connected :)");
     }
-  })
+  });
+
+
+
+
+  /*var client = new pg.Client(connectionString);
+
+  client.connect(function(err){
+    if(err){
+      console.log("was not able to connect to the DB: ");
+      console.log(err);
+      callback(err,null);
+    }
+    else {
+      console.log("i think im connected :)");
+    }
+  });*/
+
+
 }
 //listen for a connection
 //the socket parameter is a scoket every
