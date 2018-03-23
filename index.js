@@ -60,6 +60,7 @@ function addUserToDb(userName,displayName,password,callback){
 
   client.connect(function(err){
     if(err){
+      alert("was not able to connect to the DB: ")
       console.log("was not able to connect to the DB: ");
       console.log(err);
       callback(err,null);
