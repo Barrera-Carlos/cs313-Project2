@@ -3,6 +3,7 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 const path = require('path');
+var pg = require("pg");
 
 var port = process.env.PORT || 5000;
 
@@ -15,7 +16,11 @@ app.get('/', function(req, res){
   res.sendFile(__dirname + '/public/index.html');
 });
 
+//listen for a connection
+//the socket parameter is a scoket every
+//new memeber will have
 io.on('connection', function(socket){
+  //obtain and emit mesg
   socket.on('chat message', function(msg){
     io.emit('chat message', msg);
   });
