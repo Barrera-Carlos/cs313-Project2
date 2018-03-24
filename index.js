@@ -104,8 +104,8 @@ function addUserToDb(userName,displayName,password,callback){
   			res.status(500).json({success: false, data: error});
   		} else {
         var person = result[0].password;
-        res.status(200).json(person);
-  			//res.status(200).json(result[0]);
+        //res.status(200).json(person);
+  			res.sendFile('/public/CreateAndSerch.html');
   		}
   	});
   }
