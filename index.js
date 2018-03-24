@@ -9,7 +9,7 @@ var port = process.env.PORT || 5000;
 
 //const connectionString = "dbname=d5jgh9e9r7rs3k host=ec2-54-235-146-51.compute-1.amazonaws.com port=5432 user=tukubqgepkcvtn password=a621abf6cdfaaf67344840e60ae648a52ea542d59007c21828b1699c31c61c1b sslmode=require";
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '/public')));
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -105,7 +105,8 @@ function addUserToDb(userName,displayName,password,callback){
   		} else {
         var person = result[0].password;
         //res.status(200).json(person);
-  			res.sendFile( __dirname + "/public/" +'chooseRoom.html');
+  			//res.sendFile( __dirname + "/public/" +'chooseRoom.html');
+        res.sendFile('/chooseRoom.html');
   		}
   	});
   }
