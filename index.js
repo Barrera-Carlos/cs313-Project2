@@ -27,7 +27,16 @@ app.get('/signUp', function(req,res){
     logIn(req,res);
   });
 
-
+app.get('/ajaxcall',function(req,res){
+  var data = {
+    contractId: 1,
+    firstName: 'carlos',
+    lastname: 'barrera',
+    email: 'haha',
+    phone: '2345'
+  };
+  res.send(data);
+})
 function signUp(req,res){
   var userName = req.query.name;
   var displayName = req.query.Dname;
@@ -87,9 +96,7 @@ function addUserToDb(userName,displayName,password,callback){
 
 }
 
-
-
-  function logIn(req,res){
+function logIn(req,res){
     var userName = req.query.name;
     var password = req.query.psw;
     console.log(userName);
@@ -110,7 +117,7 @@ function addUserToDb(userName,displayName,password,callback){
   	});
   }
 
-  function getUser(userName,password, callback){
+function getUser(userName,password, callback){
     const client = new Client({
       connectionString: process.env.DATABASE_URL,
       ssl: true,
@@ -144,7 +151,6 @@ function addUserToDb(userName,displayName,password,callback){
       });
     });
   }
-
 
 //listen for a connection
 //the socket parameter is a scoket every
