@@ -123,7 +123,7 @@ function addUserToDb(userName,displayName,password,callback){
         callback(err,null);
       }
 
-      var qur = "SELECT * FROM public.user WHERE password = "+ password;
+      var qur = "SELECT * FROM public.user WHERE password = "+"\'"+ password +"\'";
 
       var query = client.query(qur, function(err, result) {
 			// we are now done getting the data from the DB, disconnect the client
