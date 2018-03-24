@@ -106,7 +106,7 @@ function addUserToDb(userName,displayName,password,callback){
   			var person = result[0];
   			response.status(200).json(result["username"][0]);
   		}
-  	});)
+  	});
   }
 
   function getUser(userName,password, callback){
