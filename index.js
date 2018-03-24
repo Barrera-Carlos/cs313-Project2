@@ -23,7 +23,7 @@ app.get('/signUp', function(req,res){
     signUp(req,res);
   });
 
-  app.get('/logIn',function(req,res)){
+  app.get('/logIn',function(req,res){
     logIn(req,res);
   });
 
