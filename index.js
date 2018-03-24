@@ -81,7 +81,8 @@ function addUserToDb(userName,displayName,password,callback){
       callback(err,null);
     }
     else {
-      console.log("i think im connected :)");}
+      console.log("i think im connected :)");
+    }
   });
 
 }
@@ -103,7 +104,7 @@ function addUserToDb(userName,displayName,password,callback){
   			response.status(500).json({success: false, data: error});
   		} else {
   			var person = result[0];
-  			response.status(200).json(result[0]);
+  			response.status(200).json(result["username"][0]);
   		}
   	});)
   }
@@ -121,9 +122,22 @@ function addUserToDb(userName,displayName,password,callback){
         console.log(err);
         callback(err,null);
       }
-      else {
-        console.log("i think im connected :)");
-      }
+
+      var qur = "SELECT * FROM public.user WHERE password = "+ password;
+
+      var query = client.query(qur, function(err, result) {
+			// we are now done getting the data from the DB, disconnect the client
+  			client.end(function(err) {
+  				if (err) throw err;
+  			});
+
+        if (err) {
+				console.log("Error in query: ")
+				console.log(err);
+				callback(err, null);
+			}
+      callback(null, result.rows);
+      });
     });
   }
 
