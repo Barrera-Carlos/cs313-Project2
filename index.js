@@ -101,10 +101,10 @@ function addUserToDb(userName,displayName,password,callback){
 
   		// Make sure we got a row with the person, then prepare JSON to send back
   		if (error || result == null || result.length != 1) {
-  			response.status(500).json({success: false, data: error});
+  			res.status(500).json({success: false, data: error});
   		} else {
-  			var person = result[0];
-  			response.status(200).json(result["username"][0]);
+  			//var person = result[0];
+  			res.status(200).json(result["username"][0]);
   		}
   	});
   }
