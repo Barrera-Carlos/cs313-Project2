@@ -23,6 +23,10 @@ app.get('/signUp', function(req,res){
     signUp(req,res);
   });
 
+  app.get('/logIn',function(req,res)){
+    logIn(req,res);
+  });
+
 
 function signUp(req,res){
   var userName = req.query.name;
@@ -60,19 +64,57 @@ function addUserToDb(userName,displayName,password,callback){
 
   client.connect(function(err){
     if(err){
-      alert("was not able to connect to the DB: ")
+
       console.log("was not able to connect to the DB: ");
       console.log(err);
       callback(err,null);
     }
     else {
-      console.log("i think im connected :)");
-      alert("Hello! I am an alert box!!");
-    }
+      console.log("i think im connected :)");}
   });
 
+}
 
 
+
+  function logIn(req,res){
+    var userName = req.query.name;
+    var password = req.query.psw;
+    console.log(userName);
+    console.log(password);
+
+    getUser(userName,password, function(error, result) {
+  		// This is the callback function that will be called when the DB is done.
+  		// The job here is just to send it back.
+
+  		// Make sure we got a row with the person, then prepare JSON to send back
+  		if (error || result == null || result.length != 1) {
+  			response.status(500).json({success: false, data: error});
+  		} else {
+  			var person = result[0];
+  			response.status(200).json(result[0]);
+  		}
+  	});)
+  }
+
+  function getUser(userName,password, callback){
+    const client = new Client({
+      connectionString: process.env.DATABASE_URL,
+      ssl: true,
+    });
+
+    client.connect(function(err){
+      if(err){
+
+        console.log("was not able to connect to the DB: ");
+        console.log(err);
+        callback(err,null);
+      }
+      else {
+        console.log("i think im connected :)");
+      }
+    });
+  }
 
   /*var client = new pg.Client(connectionString);
 
@@ -88,7 +130,7 @@ function addUserToDb(userName,displayName,password,callback){
   });*/
 
 
-}
+
 //listen for a connection
 //the socket parameter is a scoket every
 //new memeber will have
