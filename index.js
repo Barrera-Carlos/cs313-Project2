@@ -55,7 +55,18 @@ function signUp(req,res){
 }
 
 function addUserToDb(userName,displayName,password,callback){
+  /*var client = new pg.Client(connectionString);
 
+  client.connect(function(err){
+    if(err){
+      console.log("was not able to connect to the DB: ");
+      console.log(err);
+      callback(err,null);
+    }
+    else {
+      console.log("i think im connected :)");
+    }
+  });*/
 
   const client = new Client({
     connectionString: process.env.DATABASE_URL,
@@ -115,20 +126,6 @@ function addUserToDb(userName,displayName,password,callback){
       }
     });
   }
-
-  /*var client = new pg.Client(connectionString);
-
-  client.connect(function(err){
-    if(err){
-      console.log("was not able to connect to the DB: ");
-      console.log(err);
-      callback(err,null);
-    }
-    else {
-      console.log("i think im connected :)");
-    }
-  });*/
-
 
 
 //listen for a connection
