@@ -41,7 +41,7 @@ app.get('/ajaxcall',function(req,res){
   var disName = req.session.disName
   var data = {
     displayName: `${disName}`,
-    id: `${id}`
+    id: `why are you not working ${id}`
   };
   res.send(data);
 })
@@ -123,7 +123,7 @@ function logIn(req,res){
         var disName = result[0].display_name;
         console.log(disName);
         req.session.password = psw;
-        req.session.id = id;
+        req.session.id = 1;
         req.session.disName = disName;
   			res.sendFile( __dirname + "/public/" +'chooseRoom.html');
   		}
