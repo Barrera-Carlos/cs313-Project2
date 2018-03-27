@@ -34,7 +34,7 @@ app.get('/logIn',function(req,res){
 
 app.get('/ajaxcall',function(req,res){
   var id = req.session.id;
-  if(!req.session.id){
+  if(req.session.id == 1){
     res.send('hahah');
   }
   else {
