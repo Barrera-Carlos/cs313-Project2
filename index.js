@@ -40,7 +40,7 @@ app.get('/ajaxcall',function(req,res){
     res.send('hahah');
   }
   else {
-    res.send("no");
+    res.send(id);
   }
 
 })
