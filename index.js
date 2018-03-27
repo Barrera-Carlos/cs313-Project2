@@ -40,9 +40,9 @@ app.get('/ajaxcall',function(req,res){
   var id = req.session.id
   var disName = req.session.disName
   var data = {
-    password: psw,
+    password: `This will print the attribute I set earlier: ${psw}`,
     displayName: disName,
-    id: id
+    id: `This will print the attribute I set earlier: ${psw}`
   };
   res.send(data);
 })
