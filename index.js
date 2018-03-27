@@ -14,7 +14,7 @@ var port = process.env.PORT || 5000;
 app.use(session({
   secret:'tati',
   saveUninitialized: true,
-  resave: false
+  resave: false,
   store: new FileStore()
 }));
 app.use(express.static(path.join(__dirname, '/public')));
