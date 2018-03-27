@@ -39,7 +39,7 @@ app.get('/ajaxcall',function(req,res){
   var psw = req.session.password;
   var id = req.session.id;
   var disName = req.session.disName;
-  res.send(`This will print the attribute I set earlier: ${someAttribute}`);
+  res.send(`This will print the attribute I set earlier: ${id}`);
 })
 function signUp(req,res){
   var userName = req.query.name;
