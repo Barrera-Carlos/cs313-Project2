@@ -12,7 +12,10 @@ var port = process.env.PORT || 5000;
 app.use(session({
   secret: 'tati',
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: true,
+  cookie: {
+    maxAge: 600000
+  }
 }));
 
 app.use(express.static(path.join(__dirname, '/public')));
