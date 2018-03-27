@@ -1,5 +1,5 @@
 function buildRoomForm(){
   $.get("/ajaxcall", function(data, status){
-          alert("Data: " + data[0] + "\nStatus: " + status);
+          alert("Data: " + data.id + "\nStatus: " + status);
       });
 }
