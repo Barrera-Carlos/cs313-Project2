@@ -37,7 +37,7 @@ app.get('/ajaxcall',function(req,res){
   var data = {
     password: psw,
     displayName: disName,
-    id: 'cat'
+    id: id
   };
   res.send(data);
 })
