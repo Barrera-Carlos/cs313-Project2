@@ -116,6 +116,7 @@ function logIn(req,res){
         req.session.password = psw;
         req.session.id = id;
         req.session.disName = disName;
+        console.log(req.session.id);
   			res.sendFile( __dirname + "/public/" +'chooseRoom.html');
   		}
   	});
