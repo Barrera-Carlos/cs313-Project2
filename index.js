@@ -120,7 +120,7 @@ function logIn(req,res){
         var disName = result[0].display_name;
         console.log(disName);
         req.session.password = psw;
-        req.session.id = id;
+        req.session.id = 1;
         req.session.disName = disName;
         console.log(req.session.id);
   			res.sendFile( __dirname + "/public/" +'chooseRoom.html');
