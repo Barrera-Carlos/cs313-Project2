@@ -40,9 +40,8 @@ app.get('/ajaxcall',function(req,res){
   var id = req.session.id
   var disName = req.session.disName
   var data = {
-    password: `This will print the attribute I set earlier: ${psw}`,
-    displayName: disName,
-    id: `This will print the attribute I set earlier: ${psw}`
+    displayName: `${disName}`,
+    id: `${id}`
   };
   res.send(data);
 })
@@ -123,9 +122,9 @@ function logIn(req,res){
         var id = result[0].id;
         var disName = result[0].display_name;
         console.log(disName);
-        req.session.password = 1;
-        req.session.id = 1;
-        req.session.disName = 1;
+        req.session.password = psw;
+        req.session.id = id;
+        req.session.disName = disName;
   			res.sendFile( __dirname + "/public/" +'chooseRoom.html');
   		}
   	});
