@@ -1,14 +1,18 @@
 const express = require('express');
 var app = express();
+app.use(require('morgan')('dev'));
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+//var expressValidator = require('express-validator');
+var expressSession = require('express-session');
+var FileStore = require('session-file-store')(session);
 const path = require('path');
 const { Client } = require('pg');
 
 var port = process.env.PORT || 5000;
 
 //const connectionString = "dbname=d5jgh9e9r7rs3k host=ec2-54-235-146-51.compute-1.amazonaws.com port=5432 user=tukubqgepkcvtn password=a621abf6cdfaaf67344840e60ae648a52ea542d59007c21828b1699c31c61c1b sslmode=require";
-
+app.use(expressSession({secret:'tati',saveUninitialized: false, resave: false}));
 app.use(express.static(path.join(__dirname, '/public')));
 
 app.set('views', path.join(__dirname, 'views'));
