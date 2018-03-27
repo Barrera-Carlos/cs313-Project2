@@ -3,7 +3,7 @@ var app = express();
 app.use(require('morgan')('dev'));
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-var expressSession = require('express-session');
+var session = require('express-session');
 var FileStore = require('session-file-store')(session);
 const path = require('path');
 const { Client } = require('pg');
