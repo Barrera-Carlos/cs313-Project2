@@ -3,7 +3,6 @@ var app = express();
 app.use(require('morgan')('dev'));
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-//var expressValidator = require('express-validator');
 var expressSession = require('express-session');
 var FileStore = require('session-file-store')(session);
 const path = require('path');
@@ -33,11 +32,9 @@ app.get('/signUp', function(req,res){
 
 app.get('/ajaxcall',function(req,res){
   var data = {
-    contractId: 1,
-    firstName: 'carlos',
-    lastname: 'barrera',
-    email: 'haha',
-    phone: '2345'
+    password: req.session.password,
+    displayName: req.session.password,
+    id: req.session.id
   };
   res.send(data);
 })
@@ -114,8 +111,12 @@ function logIn(req,res){
   		if (error || result == null || result.length != 1) {
   			res.status(500).json({success: false, data: error});
   		} else {
-        var person = result[0].password;
-        //res.status(200).json(person);
+        var psw = result[0].password;
+        var id = result[0].id;
+        var disName = result[0].display_name;
+        req.session.password = psw;
+        req.session.id = id;
+        req.session.disName = disName;
   			res.sendFile( __dirname + "/public/" +'chooseRoom.html');
   		}
   	});
