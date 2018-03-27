@@ -31,10 +31,13 @@ app.get('/signUp', function(req,res){
   });
 
 app.get('/ajaxcall',function(req,res){
+  var psw = req.session.password;
+  var id = req.session.id
+  var disName = req.session.disName
   var data = {
-    password: req.session.password,
-    displayName: req.session.password,
-    id: req.session.id
+    password: psw,
+    displayName: disName,
+    id: 'cat'
   };
   res.send(data);
 })
