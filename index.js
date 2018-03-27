@@ -11,7 +11,12 @@ const { Client } = require('pg');
 var port = process.env.PORT || 5000;
 
 //const connectionString = "dbname=d5jgh9e9r7rs3k host=ec2-54-235-146-51.compute-1.amazonaws.com port=5432 user=tukubqgepkcvtn password=a621abf6cdfaaf67344840e60ae648a52ea542d59007c21828b1699c31c61c1b sslmode=require";
-app.use(session({secret:'tati',saveUninitialized: true, resave: false}));
+app.use(session({
+  secret:'tati',
+  saveUninitialized: true,
+  resave: false
+  store: new FileStore()
+}));
 app.use(express.static(path.join(__dirname, '/public')));
 
 app.set('views', path.join(__dirname, 'views'));
@@ -117,9 +122,10 @@ function logIn(req,res){
         var psw = result[0].password;
         var id = result[0].id;
         var disName = result[0].display_name;
-        req.session.password = psw;
-        req.session.id = id;
-        req.session.disName = disName;
+        console.log(disName);
+        req.session.password = 1;
+        req.session.id = 1;
+        req.session.disName = 1;
   			res.sendFile( __dirname + "/public/" +'chooseRoom.html');
   		}
   	});
