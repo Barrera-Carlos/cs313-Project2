@@ -26,22 +26,22 @@ app.get('/', function(req, res){
   res.sendFile(__dirname + '/public/index.html');
 });
 
-
 app.get('/signUp', function(req,res){
     signUp(req,res);
   });
 
-  app.get('/logIn',function(req,res){
+app.get('/logIn',function(req,res){
     logIn(req,res);
   });
 
 app.get('/ajaxcall',function(req,res){
   var id = req.session.id;
-  if(!req.session.id;)
-    res.send('hahah')
-    else {
-      res.send("no");
-    }
+  if(!req.session.id){
+    res.send('hahah');
+  }
+  else {
+    res.send("no");
+  }
 
 })
 function signUp(req,res){
