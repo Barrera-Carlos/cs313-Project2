@@ -11,12 +11,7 @@ const { Client } = require('pg');
 var port = process.env.PORT || 5000;
 
 //const connectionString = "dbname=d5jgh9e9r7rs3k host=ec2-54-235-146-51.compute-1.amazonaws.com port=5432 user=tukubqgepkcvtn password=a621abf6cdfaaf67344840e60ae648a52ea542d59007c21828b1699c31c61c1b sslmode=require";
-app.use(session({
-  secret:'tati',
-  saveUninitialized: true,
-  resave: false,
-  store: new FileStore()
-}));
+app.use(session({secret: 'this-is-a-secret-token', cookie: { maxAge: 60000 }}));
 app.use(express.static(path.join(__dirname, '/public')));
 
 app.set('views', path.join(__dirname, 'views'));
@@ -39,7 +34,7 @@ app.get('/ajaxcall',function(req,res){
   var psw = req.session.password;
   var id = req.session.id;
   var disName = req.session.disName;
-  res.send(`This will print the attribute I set earlier: ${id}`);
+  res.send(`${id}`);
 })
 function signUp(req,res){
   var userName = req.query.name;
@@ -119,7 +114,7 @@ function logIn(req,res){
         var disName = result[0].display_name;
         console.log(disName);
         req.session.password = psw;
-        req.session.id = "foo";
+        req.session.id = id;
         req.session.disName = disName;
   			res.sendFile( __dirname + "/public/" +'chooseRoom.html');
   		}
