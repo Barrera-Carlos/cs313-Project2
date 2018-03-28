@@ -128,14 +128,15 @@ function logIn(req,res){
 
         if(password == psw && userName == qUserName){
           console.log(qUserName);
-          req.session.id = id;
-          console.log(req.session.id);
-          res.sendFile( __dirname + "/public/" +'chooseRoom.html');
+          var cookieId = req.session.id;
+          cookieId = id;
+          queryCookie(id,disName,cookieId, function(){
+            if (error || result == null || result.length != 1) {
+        			res.status(500).json({success: false, data: error});
+        		} else {
+              res.sendFile( __dirname + "/public/" +'chooseRoom.html');
+          });
         }
-        else {
-          res.status(500).json({success: false, data: error});
-        }
-
   		}
   	});
   }
@@ -175,6 +176,40 @@ function getUser(userName,password, callback){
     });
   }
 
+function queryCookie (id,disName,cookieId,called){
+  const client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  });
+
+  client.connect(function(err){
+    if(err){
+
+      console.log("was not able to connect to the DB: ");
+      console.log(err);
+      callback(err,null);
+    }
+
+    var qur = "INSERT INTO public.sessionStore (cookie_id,user_id,display_name) VALUES("+"\'"+ cookieId +"\',"+"\'"+ id +"\',"+"\'"+ disName +"\')";
+
+    var query = client.query(qur, function(err, result) {
+    // we are now done getting the data from the DB, disconnect the client
+      client.end(function(err) {
+        if (err) throw err;
+      });
+
+      if (err) {
+      console.log(qur);
+      console.log("Error in query: ")
+      console.log(err);
+      callback(err, null);
+    }
+
+    console.log("Found result: " + JSON.stringify(result.rows));
+    callback(null, result.rows);
+    });
+  });
+}
 //listen for a connection
 //the socket parameter is a scoket every
 //new memeber will have
