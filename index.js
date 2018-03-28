@@ -18,7 +18,7 @@ var port = process.env.PORT || 5000;
   }
 }));*/
 
-app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 }}));
+app.use(session({ secret: 'keyboard cat',saveUninitialized: true, cookie: { maxAge: 60000 }}));
 
 app.use(express.static(path.join(__dirname, '/public')));
 
@@ -45,17 +45,9 @@ app.get('/ajaxcall',function(req,res){
   else {
     res.send(id);
   }*/
-
-  if (req.session.views) {
-    req.session.views++;
-    var count = req.session.views;
-    res.send(count);
-  }
-  else {
-    req.session.views = 1;
-    var count = req.session.views;
-    res.send(count);
-  }
+  req.session.views = 1;
+  var count = req.session.views;
+  res.send(count);
 
 });
 
