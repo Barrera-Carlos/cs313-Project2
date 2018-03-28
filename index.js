@@ -43,7 +43,7 @@ app.get('/ajaxcall',function(req,res){
       res.status(500).json({success: false, data: error});
     } else {
       var data = result[0].display_name;
-      res.send(data);
+      console.log(data);
     }
   });
 });
