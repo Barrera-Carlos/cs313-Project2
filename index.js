@@ -37,15 +37,15 @@ app.get('/logIn',function(req,res){
   });
 
 app.get('/ajaxcall',function(req,res){
-  var id = req.session.id;
-  if(req.session.id == 1){
-    console.log(req.session.user);
-  }
-  else {
-    res.send(id);
-    console.log(req.session.disName);
-    console.log(req.session.id);
-  }
+  var cookieId = req.session.id
+  getUserData(cookieId, function(error,result){
+    if (error || result == null || result.length != 1) {
+      res.status(500).json({success: false, data: error});
+    } else {
+      var data = result[0].display_name;
+      res.send(data);
+    }
+  });
 });
 
 function signUp(req,res){
@@ -205,6 +205,41 @@ function queryCookie (id,disName,cookieId,callback){
       callback(err);
     }
     callback(null);
+    });
+  });
+}
+
+function getUserData(cookieId, callback){
+  const client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  });
+
+  client.connect(function(err){
+    if(err){
+
+      console.log("was not able to connect to the DB: ");
+      console.log(err);
+      callback(err,null);
+    }
+
+    var qur = "SELECT * FROM public.sessionStore WHERE cookie_id = "+"\'"+ cookieId +"\'";
+
+    var query = client.query(qur, function(err, result) {
+    // we are now done getting the data from the DB, disconnect the client
+      client.end(function(err) {
+        if (err) throw err;
+      });
+
+      if (err) {
+      console.log(qur);
+      console.log("Error in query: ")
+      console.log(err);
+      callback(err, null);
+    }
+
+    console.log("Found result: " + JSON.stringify(result.rows));
+    callback(null, result.rows);
     });
   });
 }
