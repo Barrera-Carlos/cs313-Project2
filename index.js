@@ -44,7 +44,7 @@ app.get('/ajaxcall',function(req,res){
       res.status(500).json({success: false, data: error});
     } else {
       var data = result[0].display_name;
-      console.log(data);
+      console.log(data+"aaaaa");
     }
   });
 });
