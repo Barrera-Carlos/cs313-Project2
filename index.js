@@ -135,11 +135,10 @@ function logIn(req,res){
         			res.status(500).json({success: false, data: error});
         		} else {
               res.sendFile( __dirname + "/public/" +'chooseRoom.html');
-          });
-        }
+          }});
   		}
-  	});
-  }
+  	}
+  });
 
 function getUser(userName,password, callback){
     const client = new Client({
