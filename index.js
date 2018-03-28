@@ -37,16 +37,13 @@ app.get('/logIn',function(req,res){
   });
 
 app.get('/ajaxcall',function(req,res){
-  /*var id = req.session.id;
+  var id = req.session.id;
   if(req.session.id == 1){
     res.send('hahah');
   }
   else {
     res.send(id);
-  }*/
-  var count = req.session.views;
-  res.send(count);
-
+  }
 });
 
 function signUp(req,res){
