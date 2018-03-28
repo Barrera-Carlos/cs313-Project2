@@ -130,8 +130,8 @@ function logIn(req,res){
           console.log(qUserName);
           var cookieId = req.session.id;
           cookieId = id;
-          queryCookie(id,disName,cookieId, function(){
-            if (error || result == null || result.length != 1) {
+          queryCookie(id,disName,cookieId, function(error){
+            if (error) {
         			res.status(500).json({success: false, data: error});
         		} else {
               res.sendFile( __dirname + "/public/" +'chooseRoom.html');
@@ -202,11 +202,9 @@ function queryCookie (id,disName,cookieId,called){
       console.log(qur);
       console.log("Error in query: ")
       console.log(err);
-      callback(err, null);
+      callback(err);
     }
-
-    console.log("Found result: " + JSON.stringify(result.rows));
-    callback(null, result.rows);
+    callback(null);
     });
   });
 }
