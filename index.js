@@ -123,14 +123,16 @@ function logIn(req,res){
   		} else {
         var psw = result[0].password;
         var id = result[0].id;
+        var qUserName = result[0].username;
         var disName = result[0].display_name;
-        console.log(disName);
-        req.session.password = psw;
-        req.session.id = 1;
-        req.session.disName = disName;
-        req.session.views = 1;
-        console.log(req.session.id);
-  			res.sendFile( __dirname + "/public/" +'chooseRoom.html');
+
+        if(password == psw && userName = qUserName){
+          console.log(qUserName);
+          req.session.id = id;
+          console.log(req.session.id);
+          res.sendFile( __dirname + "/public/" +'chooseRoom.html');
+        }
+
   		}
   	});
   }
