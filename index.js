@@ -43,7 +43,7 @@ app.get('/ajaxcall',function(req,res){
   }
   else {
     res.send(id);
-    console.log(req.session.user);
+    console.log(req.session.disName);
     console.log(req.session.id);
   }
 });
