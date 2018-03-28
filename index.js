@@ -54,7 +54,8 @@ app.get('/ajaxcall',function(req,res){
     res.send(id);
   }*/
 
-})
+});
+
 function signUp(req,res){
   var userName = req.query.name;
   var displayName = req.query.Dname;
