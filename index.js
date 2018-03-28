@@ -132,6 +132,9 @@ function logIn(req,res){
           console.log(req.session.id);
           res.sendFile( __dirname + "/public/" +'chooseRoom.html');
         }
+        else {
+          res.status(500).json({success: false, data: error});
+        }
 
   		}
   	});
