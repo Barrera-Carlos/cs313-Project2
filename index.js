@@ -18,7 +18,7 @@ var port = process.env.PORT || 5000;
   }
 }));*/
 
-app.use(session({ secret: 'keyboard cat',saveUninitialized: true, cookie: { maxAge: 60000 }}));
+app.use(session({ secret: 'tati',saveUninitialized: true, resave: false, cookie: { maxAge: 60000 }}));
 
 app.use(express.static(path.join(__dirname, '/public')));
 
@@ -45,7 +45,6 @@ app.get('/ajaxcall',function(req,res){
   else {
     res.send(id);
   }*/
-  req.session.views = 1;
   var count = req.session.views;
   res.send(count);
 
@@ -131,6 +130,7 @@ function logIn(req,res){
         req.session.password = psw;
         req.session.id = 1;
         req.session.disName = disName;
+        req.session.views = 1;
         console.log(req.session.id);
   			res.sendFile( __dirname + "/public/" +'chooseRoom.html');
   		}
