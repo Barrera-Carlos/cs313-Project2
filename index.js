@@ -126,7 +126,7 @@ function logIn(req,res){
         var qUserName = result[0].username;
         var disName = result[0].display_name;
 
-        if(password == psw && userName = qUserName){
+        if(password == psw && userName == qUserName){
           console.log(qUserName);
           req.session.id = id;
           console.log(req.session.id);
