@@ -40,6 +40,7 @@ app.get('/ajaxcall',function(req,res){
   var cookieId = req.session.id
   getUserData(cookieId, function(error,result){
     if (error || result == null || result.length != 1) {
+      console.log('aaaaaaaaaaa');
       res.status(500).json({success: false, data: error});
     } else {
       var data = result[0].display_name;
