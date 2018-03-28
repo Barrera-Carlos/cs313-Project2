@@ -20,13 +20,6 @@ app.use(session({
 
 app.use(express.static(path.join(__dirname, '/public')));
 
-/*app.use(session({
-  secret: 'keyboard cat',
-  cookie: {
-    maxAge: 60000
-  }
-}));*/
-
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -43,22 +36,13 @@ app.get('/logIn',function(req,res){
   });
 
 app.get('/ajaxcall',function(req,res){
-  if (req.session.views) {
-      req.session.views++;
-      res.send(req.session.views);
-    }
-    else {
-      req.session.views = 1;
-      res.send(req.session.views);
-    }
-
-  /*var id = req.session.id;
+  var id = req.session.id;
   if(req.session.id == 1){
     res.send('hahah');
   }
   else {
     res.send(id);
-  }*/
+  }
 
 });
 
