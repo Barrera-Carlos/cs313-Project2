@@ -139,6 +139,7 @@ function logIn(req,res){
   		}
   	}
   });
+}
 
 function getUser(userName,password, callback){
     const client = new Client({
