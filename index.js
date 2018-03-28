@@ -39,10 +39,12 @@ app.get('/logIn',function(req,res){
 app.get('/ajaxcall',function(req,res){
   var id = req.session.id;
   if(req.session.id == 1){
-    res.send('hahah');
+    console.log(req.session.user);
   }
   else {
     res.send(id);
+    console.log(req.session.user);
+    console.log(req.session.id);
   }
 });
 
