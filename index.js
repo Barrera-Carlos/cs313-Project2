@@ -176,7 +176,7 @@ function getUser(userName,password, callback){
     });
   }
 
-function queryCookie (id,disName,cookieId,called){
+function queryCookie (id,disName,cookieId,callback){
   const client = new Client({
     connectionString: process.env.DATABASE_URL,
     ssl: true,
