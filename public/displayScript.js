@@ -12,7 +12,8 @@ function buildRoomForm(){
       li.style.cursor = "pointer";
       var liTextValue = li.innerHTML;
       arrOfNames.push(liTextValue);
-      li.onclick = function(){selectRoom(0)};
+      li.onclick = function(){selectRoom(index)};
+      index++;
       ul.appendChild(li);
     }
       });
