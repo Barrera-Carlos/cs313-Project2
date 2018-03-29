@@ -12,7 +12,7 @@ function buildRoomForm(){
       li.style.cursor = "pointer";
       var liTextValue = li.innerHTML;
       arrOfNames.push(liTextValue);
-      li.onclick = function(){selectRoom(index)};
+      li.onclick = function(index){selectRoom(index)};
       index++;
       ul.appendChild(li);
     }
