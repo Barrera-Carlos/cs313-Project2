@@ -38,17 +38,14 @@ app.get('/logIn',function(req,res){
 
 app.get('/ajaxcall',function(req,res){
   var cookieId = req.session.id
-  console.log(cookieId);
-  getUserData(cookieId, function(error,result){
-    if (error || result == null || result.length != 1) {
-      console.log('aaaaaaaaaaa');
-      res.status(500).json({success: false, data: error});
-    } else {
-      var data = result[0].display_name;
-      console.log(data);
-      res.send(data);
+  getChatrooms(function(error, result){
+    if(error){
+      res.send(error);
     }
-  });
+    else {
+      res.send(result);
+    }
+  })
 });
 
 function signUp(req,res){
@@ -309,6 +306,41 @@ function getUserData(Id, callback){
     }
 
     var qur = "SELECT * FROM public.sessionStore WHERE cookie_id = "+"\'"+ Id +"\'";
+    console.log(qur);
+    var query = client.query(qur, function(err, result) {
+    // we are now done getting the data from the DB, disconnect the client
+      client.end(function(err) {
+        if (err) throw err;
+      });
+
+      if (err) {
+      console.log(qur);
+      console.log("Error in query: ")
+      console.log(err);
+      callback(err, null);
+    }
+
+    console.log("Found result: " + JSON.stringify(result.rows));
+    callback(null, result.rows);
+    });
+  });
+}
+
+function getChatrooms(callback){
+  const client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  });
+
+  client.connect(function(err){
+    if(err){
+
+      console.log("was not able to connect to the DB: ");
+      console.log(err);
+      callback(err,null);
+    }
+
+    var qur = "SELECT room_name FROM public.chat_room";
     console.log(qur);
     var query = client.query(qur, function(err, result) {
     // we are now done getting the data from the DB, disconnect the client
