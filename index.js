@@ -207,7 +207,7 @@ function deletequeryCookie(id, callback){
       callback(err,null);
     }
 
-    var qur = "DELETE FROM public.user WHERE user_id = "+"\'"+ id +"\'";
+    var qur = "DELETE FROM public.sessionStore WHERE user_id = "+"\'"+ id +"\'";
     console.log(qur);
     var query = client.query(qur, function(err, result) {
     // we are now done getting the data from the DB, disconnect the client
