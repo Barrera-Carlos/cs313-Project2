@@ -7,6 +7,7 @@ function buildRoomForm(){
       var text = document.createTextNode(data[i].room_name );
       li.appendChild(text);
       var liTextValue = li.innerHTML;
+      console.log(liTextValue);
       li.style.cursor = "pointer";
       li.onclick = function(){selectRoom(liTextValue)};
       ul.appendChild(li);
