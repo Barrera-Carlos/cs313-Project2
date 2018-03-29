@@ -1,5 +1,8 @@
 function buildRoomForm(){
   $.get("/ajaxcall", function(data, status){
-          alert("Data: " + data[0].room_name + "\nStatus: " + status);
+    $.each(data, function(key,value){
+      $('#list').append($('<li>')).value;
+    })
+          //alert("Data: " + data[0].room_name + "\nStatus: " + status);
       });
 }
