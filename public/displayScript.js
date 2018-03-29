@@ -6,16 +6,17 @@ function buildRoomForm(){
       var li = document.createElement("LI");
       var text = document.createTextNode(data[i].room_name );
       li.appendChild(text);
-      console.log(li.innerHTML);
+      var liTextValue = li.innerHTML;
       li.style.cursor = "pointer";
-      li.onclick = function(){selectRoom()};
+      li.onclick = function(){selectRoom(liTextValue)};
       ul.appendChild(li);
     }
       });
 }
 
-function selectRoom(listId){
-  //alert(listId);
+function selectRoom(liTextValue){
+  alert(liTextValue);
+  console.log(liTextValue);
   var formInput = document.getElementById('dataHolder');
 
 }
