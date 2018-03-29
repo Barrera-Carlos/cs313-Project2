@@ -131,8 +131,8 @@ function logIn(req,res){
 
         if(password == psw && userName == qUserName){
           console.log(qUserName);
+          req.session.id = id;
           var cookieId = req.session.id;
-          cookieId = id;
           queryCookie(id,disName,cookieId, function(error){
             if (error) {
         			res.status(500).json({success: false, data: error});
