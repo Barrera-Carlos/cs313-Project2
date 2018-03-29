@@ -227,7 +227,7 @@ function getUserData(cookieId, callback){
     }
 
     var qur = "SELECT * FROM public.sessionStore WHERE cookie_id = "+"\'"+ cookieId +"\'";
-
+    console.log(qur);
     var query = client.query(qur, function(err, result) {
     // we are now done getting the data from the DB, disconnect the client
       client.end(function(err) {
