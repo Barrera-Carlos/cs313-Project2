@@ -6,8 +6,13 @@ function buildRoomForm(){
       var li = document.createElement("LI");
       var text = document.createTextNode(data[i].room_name );
       li.appendChild(text);
+      li.onclick = function(){selectRoom()};
       ul.appendChild(li);
     }
           //alert("Data: " + data[0].room_name + "\nStatus: " + status);
       });
+}
+
+function selectRoom(){
+  alert("i have been tuched ewwww");
 }
