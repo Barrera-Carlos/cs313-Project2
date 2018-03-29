@@ -38,13 +38,15 @@ app.get('/logIn',function(req,res){
 
 app.get('/ajaxcall',function(req,res){
   var cookieId = req.session.id
+  console.log(cookieId);
   getUserData(cookieId, function(error,result){
     if (error || result == null || result.length != 1) {
       console.log('aaaaaaaaaaa');
       res.status(500).json({success: false, data: error});
     } else {
       var data = result[0].display_name;
-      console.log(data+"aaaaa");
+      console.log(data);
+      res.send(data);
     }
   });
 });
@@ -192,7 +194,7 @@ function queryCookie (id,disName,cookieId,callback){
     }
 
     var qur = "INSERT INTO public.sessionStore (cookie_id,user_id,display_name) VALUES("+"\'"+ cookieId +"\',"+"\'"+ id +"\',"+"\'"+ disName +"\')";
-
+    console.log(qur);
     var query = client.query(qur, function(err, result) {
     // we are now done getting the data from the DB, disconnect the client
       client.end(function(err) {
