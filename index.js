@@ -78,19 +78,6 @@ function signUp(req,res){
 }
 
 function addUserToDb(userName,displayName,password,callback){
-  /*var client = new pg.Client(connectionString);
-
-  client.connect(function(err){
-    if(err){
-      console.log("was not able to connect to the DB: ");
-      console.log(err);
-      callback(err,null);
-    }
-    else {
-      console.log("i think im connected :)");
-    }
-  });*/
-
   const client = new Client({
     connectionString: process.env.DATABASE_URL,
     ssl: true,
@@ -133,14 +120,109 @@ function logIn(req,res){
           console.log(qUserName);
           req.session.id = id;
           var cookieId = req.session.id;
-          queryCookie(id,disName,cookieId, function(error){
-            if (error) {
-        			res.status(500).json({success: false, data: error});
-        		} else {
-              res.sendFile( __dirname + "/public/" +'chooseRoom.html');
-          }});
+          checkForUser(id, function(error, result){
+            if(error || result == null){
+              res.status(500).json({success: false, data: error});
+            }else if (result.length == 0 && error == null) {
+              queryCookie(id,disName,cookieId, function(error){
+                if (error) {
+                  res.status(500).json({success: false, data: error});
+                } else {
+                  res.sendFile( __dirname + "/public/" +'chooseRoom.html');
+              }});
+            }else{
+              getUserData(cookieId, function(error,result){
+                if(result.length == 0){
+                  deletequeryCookie(id,function(error){
+                    if(error){
+                      res.status(500).json({success: false, data: error});
+                    }
+                    else {
+                      queryCookie(id,disName,cookieId, function(error){
+                        if (error) {
+                          res.status(500).json({success: false, data: error});
+                        } else {
+                          res.sendFile( __dirname + "/public/" +'chooseRoom.html');
+                      }});
+                    }
+                  })
+                }
+                else {
+                  res.sendFile( __dirname + "/public/" +'chooseRoom.html');
+                }
+              });
+            }
+          });
   		}
   	}
+  });
+}
+
+function checkForUser(id,callback){
+  const client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  });
+
+  client.connect(function(err){
+    if(err){
+
+      console.log("was not able to connect to the DB: ");
+      console.log(err);
+      callback(err,null);
+    }
+
+    var qur = "SELECT * FROM public.sessionStore WHERE user_id = "+"\'"+ id +"\'";
+    console.log(qur);
+    var query = client.query(qur, function(err, result) {
+    // we are now done getting the data from the DB, disconnect the client
+      client.end(function(err) {
+        if (err) throw err;
+      });
+
+      if (err) {
+      console.log(qur);
+      console.log("Error in query: ")
+      console.log(err);
+      callback(err, null);
+    }
+
+    console.log("Found result: " + JSON.stringify(result.rows));
+    callback(null, result.rows);
+    });
+  });
+}
+
+function deletequeryCookie(id, callback){
+  const client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  });
+
+  client.connect(function(err){
+    if(err){
+
+      console.log("was not able to connect to the DB: ");
+      console.log(err);
+      callback(err,null);
+    }
+
+    var qur = "DELETE FROM public.user WHERE user_id = "+"\'"+ id +"\'";
+    console.log(qur);
+    var query = client.query(qur, function(err, result) {
+    // we are now done getting the data from the DB, disconnect the client
+      client.end(function(err) {
+        if (err) throw err;
+      });
+
+      if (err) {
+      console.log(qur);
+      console.log("Error in query: ")
+      console.log(err);
+      callback(err);
+    }
+    callback(null);
+    });
   });
 }
 
@@ -212,7 +294,7 @@ function queryCookie (id,disName,cookieId,callback){
   });
 }
 
-function getUserData(cookieId, callback){
+function getUserData(Id, callback){
   const client = new Client({
     connectionString: process.env.DATABASE_URL,
     ssl: true,
@@ -226,7 +308,7 @@ function getUserData(cookieId, callback){
       callback(err,null);
     }
 
-    var qur = "SELECT * FROM public.sessionStore WHERE cookie_id = "+"\'"+ cookieId +"\'";
+    var qur = "SELECT * FROM public.sessionStore WHERE cookie_id = "+"\'"+ Id +"\'";
     console.log(qur);
     var query = client.query(qur, function(err, result) {
     // we are now done getting the data from the DB, disconnect the client
