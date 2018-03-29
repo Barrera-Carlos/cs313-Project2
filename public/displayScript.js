@@ -7,7 +7,7 @@ function buildRoomForm(){
       var text = document.createTextNode(data[i].room_name );
       li.appendChild(text);
       li.style.cursor = "pointer";
-      li.onclick = function(){selectRoom(li.innerHTML)};
+      li.onclick = function(){selectRoom(text)};
       ul.appendChild(li);
     }
       });
