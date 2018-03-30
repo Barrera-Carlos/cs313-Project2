@@ -10,7 +10,7 @@ function buildRoomForm(){
       input.setAttribute('name','rooms[]');
       input.setAttribute('value',data[i].room_name);
       var text = document.createTextNode(data[i].room_name );
-      input.appendChild(text);
+      input.appendChild("aaaaa");
       div.appendChild(input);
     }
       });
