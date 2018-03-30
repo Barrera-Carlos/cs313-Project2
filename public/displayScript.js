@@ -8,7 +8,7 @@ function buildRoomForm(){
       var input = document.createElement("INPUT");
       input.setAttribute('type', 'radio');
       input.setAttribute('name','rooms[]');
-      input.serAttribute('value',data[i].room_name);
+      input.setAttribute('value',data[i].room_name);
       var text = document.createTextNode(data[i].room_name );
       input.appendChild(text);
       ul.appendChild(input);
