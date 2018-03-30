@@ -2,19 +2,16 @@ var arrOfNames = new Array();
 
 function buildRoomForm(){
   var index = 0;
-  var ul = document.getElementById("list")
-  ul.style = "list-style-type:none"
+  var div = document.getElementById("listOfInput")
   $.get("/ajaxcall", function(data, status){
     for(var i = 0; i<data.length; i++){
-      var li = document.createElement("LI");
+      var input = document.createElement("INPUT");
+      input.setAttribute('type', 'radio');
+      input.setAttribute('name','rooms[]');
+      input.serAttribute('value',data[i].room_name);
       var text = document.createTextNode(data[i].room_name );
-      li.appendChild(text);
-      li.style.cursor = "pointer";
-      var liTextValue = li.innerHTML;
-      arrOfNames.push(liTextValue);
-      li.onclick = function(index){selectRoom(index)};
-      index++;
-      ul.appendChild(li);
+      input.appendChild(text);
+      ul.appendChild(input);
     }
       });
 }
