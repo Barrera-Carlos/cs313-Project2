@@ -25,7 +25,7 @@ socket.on('chat message', function(msg){
 $( document ).ready(function() {
 //$(function () {
 
-$.get("/enterRoom", function(data,status){
+/*$.get("/enterRoom", function(data,status){
   if(data != null){
     alert(data);
   }
@@ -44,6 +44,20 @@ $.get("/enterRoom", function(data,status){
     $('#list').append($('<li>').text(msg));
     window.scrollTo(0, document.body.scrollHeight);
   });
-})
+})*/
+  //start connection
+  var socket = io();
 
+  //on form clic/submit event emit/sent message
+  $('form').submit(function(){
+    socket.emit('chat message', $('#message').val());
+    $('#message').val('');
+    return false;
+  });
+
+  //listen for event (messages sent) and display on html page
+  socket.on('chat message', function(msg){
+    $('#list').append($('<li>').text(msg));
+    window.scrollTo(0, document.body.scrollHeight);
+  });
 });
