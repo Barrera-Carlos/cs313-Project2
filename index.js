@@ -378,7 +378,7 @@ io.on('connection', function(socket){
   //this socket.on will joint a room
   socket.on('join', function(msg){
     if(msg == currentRoom){
-      console.log(msg is the same as room);
+      console.log("msg is the same as room");
     }
     socket.join(currentRoom);
   });
