@@ -65,6 +65,10 @@ $.get("/enterRoom", function(data,status){
       window.scrollTo(0, document.body.scrollHeight);
     });
   }
-
 })
+
+  /*socket.on('chat message', function(msg){
+    $('#list').append($('<li>').text(msg));
+    window.scrollTo(0, document.body.scrollHeight);
+  });*/
 });
