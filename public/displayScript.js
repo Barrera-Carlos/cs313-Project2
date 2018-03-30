@@ -3,8 +3,10 @@ var arrOfNames = new Array();
 function buildRoomForm(){
   var index = 0;
   var form = document.getElementById("listOfInput")
+
   $.get("/ajaxcall", function(data, status){
     for(var i = 0; i<data.length; i++){
+      var br = document.createElement("BR");
       var input = document.createElement("INPUT");
       input.setAttribute('type', 'radio');
       input.setAttribute('name','rooms[]');
@@ -12,6 +14,7 @@ function buildRoomForm(){
       var text = document.createTextNode(String(data[i].room_name));
       form.appendChild(text);
       form.appendChild(input);
+      form.insertBefore(br,input);
     }
       });
 
