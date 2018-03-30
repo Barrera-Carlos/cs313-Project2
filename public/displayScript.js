@@ -23,6 +23,4 @@ function buildRoomForm(){
     form.appendChild(submit);
     form.insertBefore(br,submit);
     });
-
-
 }
