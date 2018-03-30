@@ -14,5 +14,8 @@ function buildRoomForm(){
       div.appendChild(input);
     }
       });
-
+      var br = document.createElement("BR");
+      for(var i = 1; i < div.childElementCount; i++){
+        div.insertBefore(br,div.childNodes[i]);
+      }
 }
