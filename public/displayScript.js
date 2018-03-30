@@ -11,7 +11,7 @@ function buildRoomForm(){
       input.setAttribute('value',data[i].room_name);
       var text = document.createTextNode(data[i].room_name );
       input.appendChild(text);
-      ul.appendChild(input);
+      div.appendChild(input);
     }
       });
 }
