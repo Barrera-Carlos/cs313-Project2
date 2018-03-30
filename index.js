@@ -375,15 +375,18 @@ function getChatrooms(callback){
 //the socket parameter is a scoket every
 //new memeber will have
 io.on('connection', function(socket){
-  /*this socket.on will joint a room
+  //this socket.on will joint a room
   socket.on('join', function(msg){
-    //socket.join(name of room in a string format)
-  });*/
+    if(msg == currentRoom){
+      console.log(msg is the same as room);
+    }
+    socket.join(currentRoom);
+  });
 
   //this socket.on recives the messege and emit mesg
   socket.on('chat message', function(msg){
-    //io.to(name of room in a string format).emit(msg)
-    io.emit('chat message', msg);
+    io.to(currentRoom).emit(msg)
+    //io.emit('chat message', msg);
   });
 
   /*this socket.on will leave the room
