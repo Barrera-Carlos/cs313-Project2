@@ -385,8 +385,8 @@ io.on('connection', function(socket){
   });
 
   //this socket.on recives the messege and emit mesg
-  socket.on('chat message', function(msg,roomName){
-    io.to(roomName).emit('chat message',msg);
+  socket.on('chat message', function(msg){
+    io.to(msg.room).emit('chat message',msg.data);
     //io.emit('chat message', msg);
   });
 

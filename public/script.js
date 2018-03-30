@@ -37,7 +37,7 @@ $.get("/enterRoom", function(data,status){
     socket.emit('join',roomName);
     //on form clic/submit event emit/sent message
     $('form').submit(function(){
-      socket.emit('chat message', ($('#message').val(),roomName));
+      socket.emit('chat message', {data:$('#message').val(),room: roomName});
       $('#message').val('');
       return false;
     });
