@@ -17,12 +17,11 @@ function buildRoomForm(){
       form.insertBefore(br,input);
     }
       });
+      var submit = document.createElement("INPUT");
+      var br = document.createElement("BR");
+      submit.setAttribute('type','submit');
+      submit.setAttribute('value', 'Select Room');
+      form.appendChild(submit);
+      form.insertBerfore(br,submit);
 
-      var input = form.getElementsByTagName("INPTU");
-      console.log(input.length);
-      /*for(var i = 1; i <input.length; i++){
-        console.log(i);
-        var br = document.createElement("BR");
-        form.insertBefore(br,input[i]);
-      }*/
 }
