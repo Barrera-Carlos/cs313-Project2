@@ -380,13 +380,13 @@ io.on('connection', function(socket){
     if(msg == currentRoom){
       console.log("msg is the same as room");
     }
-    
+
     socket.join(msg);
   });
 
   //this socket.on recives the messege and emit mesg
-  socket.on('chat message', function(msg){
-    io.to(currentRoom).emit('chat message',msg);
+  socket.on('chat message', function(msg,roomName){
+    io.to(roomName).emit('chat message',msg);
     //io.emit('chat message', msg);
   });
 
