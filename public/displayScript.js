@@ -17,6 +17,7 @@ function buildRoomForm(){
 
       var input = form.getElementsByTagName("INPTU");
       for(var i = 1; i <input.length; i++){
+        console.log(i);
         var br = document.createElement("BR");
         form.insertBefore(br,input[i]);
       }
