@@ -25,7 +25,7 @@ socket.on('chat message', function(msg){
 $( document ).ready(function() {
 //$(function () {
 
-/*$.get("/enterRoom", function(data,status){
+$.get("/enterRoom", function(data,status){
   if(data != null){
     alert(data);
   }
@@ -44,7 +44,8 @@ $( document ).ready(function() {
     $('#list').append($('<li>').text(msg));
     window.scrollTo(0, document.body.scrollHeight);
   });
-})*/
+})
+/*
   //start connection
   var socket = io();
 
@@ -59,5 +60,5 @@ $( document ).ready(function() {
   socket.on('chat message', function(msg){
     $('#list').append($('<li>').text(msg));
     window.scrollTo(0, document.body.scrollHeight);
-  });
+  });*/
 });

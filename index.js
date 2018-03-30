@@ -50,10 +50,14 @@ app.get('/ajaxcall',function(req,res){
   })
 });
 
-app.get('/chooseroom'),function(req,res){
+app.get('/chooseroom',function(req,res){
   currentRoom = req.query.rooms[0];
-  res.sendFile( __dirname + "/public/" +'index.html');
-}
+  res.sendFile(__dirname + '/public/index.html');
+});
+
+app.get('/enterRoom',function(req,res){
+  res.send(currentRoom);
+});
 
 function signUp(req,res){
   var userName = req.query.name;
