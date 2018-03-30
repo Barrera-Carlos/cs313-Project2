@@ -380,6 +380,7 @@ io.on('connection', function(socket){
     if(msg == currentRoom){
       console.log("msg is the same as room");
     }
+    
     socket.join(msg);
   });
 
