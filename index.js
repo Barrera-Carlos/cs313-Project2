@@ -6,6 +6,8 @@ var session = require('express-session');
 const path = require('path');
 const { Client } = require('pg');
 
+var currentRoom = null;
+
 var port = process.env.PORT || 5000;
 
 //const connectionString = "dbname=d5jgh9e9r7rs3k host=ec2-54-235-146-51.compute-1.amazonaws.com port=5432 user=tukubqgepkcvtn password=a621abf6cdfaaf67344840e60ae648a52ea542d59007c21828b1699c31c61c1b sslmode=require";
@@ -47,6 +49,11 @@ app.get('/ajaxcall',function(req,res){
     }
   })
 });
+
+app.get('/chooseroom'),function(req,res){
+  currentRoom = req.query.rooms[0];
+  res.sendFile( __dirname + "/public/" +'index.html');
+}
 
 function signUp(req,res){
   var userName = req.query.name;
@@ -364,10 +371,21 @@ function getChatrooms(callback){
 //the socket parameter is a scoket every
 //new memeber will have
 io.on('connection', function(socket){
-  //obtain and emit mesg
+  /*this socket.on will joint a room
+  socket.on('join', function(msg){
+    //socket.join(name of room in a string format)
+  });*/
+
+  //this socket.on recives the messege and emit mesg
   socket.on('chat message', function(msg){
+    //io.to(name of room in a string format).emit(msg)
     io.emit('chat message', msg);
   });
+
+  /*this socket.on will leave the room
+  socket.on('chat message', function(msg){
+    //socket.leave(name of room in a string format)
+  });*/
 });
 
 http.listen(port, function(){

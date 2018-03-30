@@ -21,7 +21,14 @@ socket.on('chat message', function(msg){
 });
 */
 
-$(function () {
+
+$( document ).ready(function() {
+//$(function () {
+
+$.get("/enterRoom", function(data,status){
+  if(data != null){
+    alert(data);
+  }
   //start connection
   var socket = io();
 
@@ -37,4 +44,6 @@ $(function () {
     $('#list').append($('<li>').text(msg));
     window.scrollTo(0, document.body.scrollHeight);
   });
+})
+
 });
