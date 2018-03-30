@@ -22,6 +22,6 @@ function buildRoomForm(){
       submit.setAttribute('type','submit');
       submit.setAttribute('value', 'Select Room');
       form.appendChild(submit);
-      form.insertBerfore(br,submit);
+      form.insertBefore(br,submit);
 
 }
