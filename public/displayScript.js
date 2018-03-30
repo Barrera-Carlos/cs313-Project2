@@ -10,15 +10,10 @@ function buildRoomForm(){
       input.setAttribute('name','rooms[]');
       input.setAttribute('value',data[i].room_name);
       var text = document.createTextNode(data[i].room_name );
+      var br = document.createElement("BR");
+      text.appendChild(br);
       input.appendChild(text);
       div.appendChild(input);
     }
       });
-}
-
-function selectRoom(liTextValue){
-  alert(liTextValue);
-  console.log(arrOfNames[liTextValue]);
-  var formInput = document.getElementById('dataHolder');
-
 }
