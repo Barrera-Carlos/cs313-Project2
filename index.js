@@ -5,12 +5,14 @@ var io = require('socket.io')(http);
 var session = require('express-session');
 const path = require('path');
 const { Client } = require('pg');
+var bcrypt = require('bcrypt');
+const saltRounds = 10;
+
 
 var currentRoom = null;
 
 var port = process.env.PORT || 5000;
 
-//const connectionString = "dbname=d5jgh9e9r7rs3k host=ec2-54-235-146-51.compute-1.amazonaws.com port=5432 user=tukubqgepkcvtn password=a621abf6cdfaaf67344840e60ae648a52ea542d59007c21828b1699c31c61c1b sslmode=require";
 app.use(session({
   secret: 'tati',
   resave: false,
@@ -27,7 +29,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.get('/', function(req, res){
-  res.sendFile(__dirname + '/public/index.html');
+  res.sendFile(__dirname + '/public/logIn.html');
 });
 
 app.get('/signUp', function(req,res){
@@ -63,25 +65,24 @@ function signUp(req,res){
   var userName = req.query.name;
   var displayName = req.query.Dname;
   var password = req.query.psw;
-  console.log(userName);
-  console.log(displayName);
-  console.log(password);
 
   //should serch before add user of in add user function?
   //searchForUserName();
 
-  addUserToDb(userName,displayName,password, function(error, result) {
-		// This is the callback function that will be called when the DB is done.
-		// The job here is just to send it back.
+  bcrypt.hash(password,saltRounds, function(err,hash){
+    addUserToDb(userName,displayName,hash, function(error, result) {
+  		// This is the callback function that will be called when the DB is done.
+  		// The job here is just to send it back.
 
-		// Make sure we got a row with the person, then prepare JSON to send back
-		if (error || result == null || result.length != 1) {
-			response.status(500).json({success: false, data: error});
-		} else {
-			var person = result[0];
-			response.status(200).json(result[0]);
-		}
-	});
+  		// Make sure we got a row with the person, then prepare JSON to send back
+  		if (error || result == null || result.length != 1) {
+  			res.status(500).json({success: false, data: error});
+  		} else {
+  			var person = result[0];
+  			res.sendFile(__dirname + '/public/logIn.html');
+  		}
+  	});
+  });
 
 }
 
@@ -92,17 +93,32 @@ function addUserToDb(userName,displayName,password,callback){
   });
 
   client.connect(function(err){
-    if(err){
+      if(err){
 
-      console.log("was not able to connect to the DB: ");
-      console.log(err);
-      callback(err,null);
-    }
-    else {
-      console.log("i think im connected :)");
-    }
+        console.log("was not able to connect to the DB: ");
+        console.log(err);
+        callback(err,null);
+      }
+      var qur = "INSERT INTO public.user (username,password,display_name) VALUES("+"\'"+ userName +"\',"+"\'"+ displayName +"\',"+"\'"+ password +"\')";
+      console.log(qur);
+      var query = client.query(qur, function(err, result) {
+      // we are now done getting the data from the DB, disconnect the client
+        client.end(function(err) {
+          if (err) throw err;
+        });
+
+        if (err) {
+        console.log(qur);
+        console.log("Error in query: ")
+        console.log(err);
+        callback(err, null);
+      }
+
+      console.log("Found result: " + JSON.stringify(result.rows));
+      callback(null, result.rows);
+      });
+    });
   });
-
 }
 
 function logIn(req,res){

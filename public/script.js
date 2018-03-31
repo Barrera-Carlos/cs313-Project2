@@ -1,25 +1,4 @@
-/*
-//start connection
-var socket = io();
-
-//Query DOM
-var message = document.getElementById("message");
-var list = document.getElementById("list");
-var btn = document.getElementById("submit");
-
-//Emmit events
-btn.addEventListener('click',function(){
-  socket.emit('chat message', message.value);
-});
-
-//listen for event
-socket.on('chat message', function(msg){
-  var child = document.createElement("LI");
-  var textnode = document.createTextNode(msg);
-  child.appendChild(textnode);
-  list.appendChild(child);
-});
-*/
+//This script is used for the chat room socket.
 
 
 $( document ).ready(function() {
