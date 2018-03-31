@@ -70,12 +70,12 @@ function signUp(req,res){
   //searchForUserName();
 
   bcrypt.hash(password,saltRounds, function(err,hash){
-    addUserToDb(userName,displayName,hash, function(error, result) {
+    addUserToDb(userName,displayName,hash, function(error) {
   		// This is the callback function that will be called when the DB is done.
   		// The job here is just to send it back.
 
   		// Make sure we got a row with the person, then prepare JSON to send back
-  		if (error || result == null || result.length != 1) {
+  		if (error) {
   			res.status(500).json({success: false, data: error});
   		} else {
   			var person = result[0];
@@ -99,7 +99,7 @@ function addUserToDb(userName,displayName,password,callback){
         console.log(err);
         callback(err,null);
       }
-      var qur = "INSERT INTO public.user (username,password,display_name) VALUES("+"\'"+ userName +"\',"+"\'"+ displayName +"\',"+"\'"+ password +"\')";
+      var qur = "INSERT INTO public.user (username,password,display_name) VALUES("+"\'"+ userName +"\',"+"\'"+ password +"\',"+"\'"+ displayName +"\')";
       console.log(qur);
       var query = client.query(qur, function(err, result) {
       // we are now done getting the data from the DB, disconnect the client
@@ -114,7 +114,6 @@ function addUserToDb(userName,displayName,password,callback){
         callback(err, null);
       }
 
-      console.log("Found result: " + JSON.stringify(result.rows));
       callback(null, result.rows);
       });
     });
@@ -124,8 +123,6 @@ function addUserToDb(userName,displayName,password,callback){
 function logIn(req,res){
     var userName = req.query.name;
     var password = req.query.psw;
-    console.log(userName);
-    console.log(password);
 
     getUser(userName,password, function(error, result) {
   		// This is the callback function that will be called when the DB is done.
@@ -135,26 +132,28 @@ function logIn(req,res){
   		if (error || result == null || result.length != 1) {
   			res.status(500).json({success: false, data: error});
   		} else {
-        var psw = result[0].password;
         var id = result[0].id;
         var qUserName = result[0].username;
         var disName = result[0].display_name;
 
-        if(password == psw && userName == qUserName){
-          console.log(qUserName);
-          req.session.id = id;
-          var cookieId = req.session.id;
-          checkForUser(id, function(error, result){
-            if(error || result == null){
-              res.status(500).json({success: false, data: error});
-            }else if (result.length == 0 && error == null) {
-              queryCookie(id,disName,cookieId, function(error){
-                if (error) {
-                  res.status(500).json({success: false, data: error});
-                } else {
-                  res.sendFile( __dirname + "/public/" +'chooseRoom.html');
-              }});
-            }else{
+        console.log(qUserName);
+        req.session.id = id;
+        var cookieId = req.session.id;
+        checkForUser(id, function(error, result){
+          if(error || result == null){
+            res.status(500).json({success: false, data: error});
+          }
+          else if (result.length == 0 && error == null) {
+            queryCookie(id,disName,cookieId, function(error){
+              if (error) {
+                res.status(500).json({success: false, data: error});
+              }
+              else {
+                res.sendFile( __dirname + "/public/" +'chooseRoom.html');
+              }
+            });
+            }
+            else{
               getUserData(cookieId, function(error,result){
                 if(result.length == 0){
                   deletequeryCookie(id,function(error){
@@ -165,11 +164,13 @@ function logIn(req,res){
                       queryCookie(id,disName,cookieId, function(error){
                         if (error) {
                           res.status(500).json({success: false, data: error});
-                        } else {
+                        }
+                        else {
                           res.sendFile( __dirname + "/public/" +'chooseRoom.html');
-                      }});
+                      }
+                    });
                     }
-                  })
+                  });
                 }
                 else {
                   res.sendFile( __dirname + "/public/" +'chooseRoom.html');
@@ -177,7 +178,6 @@ function logIn(req,res){
               });
             }
           });
-  		}
   	}
   });
 }
@@ -264,7 +264,9 @@ function getUser(userName,password, callback){
         callback(err,null);
       }
 
-      var qur = "SELECT * FROM public.user WHERE password = "+"\'"+ password +"\'";
+
+
+      var qur = "SELECT * FROM public.user WHERE username = "+"\'"+ userName +"\'";
 
       var query = client.query(qur, function(err, result) {
 			// we are now done getting the data from the DB, disconnect the client
@@ -280,7 +282,18 @@ function getUser(userName,password, callback){
 			}
 
       console.log("Found result: " + JSON.stringify(result.rows));
-      callback(null, result.rows);
+      bcrypt.compare(password, result.row.password,function(err,res){
+        if(err){
+          console.log("issue when comparing password and hash");
+          callback(err,null);
+        }
+        else if(res == true){
+          callback(null, result.rows);
+        }
+        else{
+          callback(null,false)
+        }
+      })
       });
     });
   }
