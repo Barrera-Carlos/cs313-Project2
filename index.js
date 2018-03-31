@@ -118,8 +118,8 @@ function addUserToDb(userName,displayName,password,callback){
       callback(null, result.rows);
       });
     });
-  });
-}
+  }
+
 
 function logIn(req,res){
     var userName = req.query.name;
