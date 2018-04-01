@@ -78,7 +78,6 @@ function signUp(req,res){
   		if (error) {
   			res.status(500).json({success: false, data: error});
   		} else {
-  			var person = result[0];
   			res.sendFile(__dirname + '/public/logIn.html');
   		}
   	});
