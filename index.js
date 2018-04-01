@@ -109,11 +109,10 @@ function addUserToDb(userName,displayName,password,callback){
         if (err) {
         console.log(qur);
         console.log("Error in query: ")
-        console.log(err);
-        callback(err, null);
+        callback(err);
       }
 
-      callback(null, result.rows);
+      callback(null);
       });
     });
   }
