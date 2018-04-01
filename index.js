@@ -36,6 +36,10 @@ app.get('/signUp', function(req,res){
     signUp(req,res);
   });
 
+app.get('/signUpPage', function(req,res){
+  res.sendFile(__dirname + '/public/signUp.html');
+});
+
 app.get('/logIn',function(req,res){
     logIn(req,res);
   });
