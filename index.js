@@ -282,7 +282,7 @@ function getUser(userName,password, callback){
       console.log("Found result: " + JSON.stringify(result.rows));
       bcrypt.compare(password, result.rows.password, function(err,res){
         if(err){
-          console.log("issue when comparing password and hash");
+          console.log("issue when comparing password and hash res:"+ res);
           callback(err,null);
         }
         else if(res == true){
