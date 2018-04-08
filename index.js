@@ -60,7 +60,7 @@ app.get('/ajaxcallFav', function(req,res){
 
   checkForUser(cookieId, function(req,userInfo){
     if(userInfo != null){
-        res.send("Found result: " + JSON.stringify(result.rows));
+        res.send("Found result: " + JSON.stringify(userInfo));
       /*var userid = userInfo[0].user_id;
       getFavChatroomId(userid,function(error,result){
         if(result != null){
