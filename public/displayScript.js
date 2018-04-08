@@ -26,6 +26,6 @@ function buildRoomForm(){
       submit.setAttribute('value', 'Select Room');
       form.appendChild(submit);
       form.insertBefore(br,submit);
-      });
-    }
+      }
+    });
 }
