@@ -45,13 +45,30 @@ app.get('/logIn',function(req,res){
   });
 
 app.get('/ajaxcall',function(req,res){
-  var cookieId = req.session.id
   getChatrooms(function(error, result){
     if(error){
       res.send(error);
     }
     else {
       res.send(result);
+    }
+  })
+});
+
+app.get('/ajaxcallFav', function(req,res){
+  var cookieId = req.session.id;
+
+  checkForUser(cookieId, function(req,userInfo){
+    if(userInfo != null){
+      var userid = userInfo.[0].user_id;
+      getFavChatrooms(userid,function(error,result){
+        if(error){
+          res.send(error);
+        }
+        else {
+          res.send(result);
+        }
+      })
     }
   })
 });
@@ -385,6 +402,43 @@ function getChatrooms(callback){
     }
 
     var qur = "SELECT room_name FROM public.chat_room";
+    console.log(qur);
+    var query = client.query(qur, function(err, result) {
+    // we are now done getting the data from the DB, disconnect the client
+      client.end(function(err) {
+        if (err) throw err;
+      });
+
+      if (err) {
+      console.log(qur);
+      console.log("Error in query: ")
+      console.log(err);
+      callback(err, null);
+    }
+
+    console.log("Found result: " + JSON.stringify(result.rows));
+    callback(null, result.rows);
+    });
+  });
+}
+
+//This will return the room_id of favorite favRooms
+// i still need to compare the room names with its id.
+function getFavChatrooms(userid,callback){
+  const client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  });
+
+  client.connect(function(err){
+    if(err){
+
+      console.log("was not able to connect to the DB: ");
+      console.log(err);
+      callback(err,null);
+    }
+
+    var qur = "SELECT room_id FROM public.user_room";
     console.log(qur);
     var query = client.query(qur, function(err, result) {
     // we are now done getting the data from the DB, disconnect the client
