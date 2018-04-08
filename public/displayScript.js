@@ -7,7 +7,7 @@ function buildRoomForm(){
   $.get("/ajaxcall", function(data, status){
     if(data.length > 0){
       $.get("/ajaxcallFav", function(data, status){
-
+        alert(data);
       });
       for(var i = 0; i<data.length; i++){
         var br = document.createElement("BR");

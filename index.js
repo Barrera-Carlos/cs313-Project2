@@ -61,16 +61,18 @@ app.get('/ajaxcallFav', function(req,res){
   checkForUser(cookieId, function(req,userInfo){
     if(userInfo != null){
       var userid = userInfo.[0].user_id;
-      getFavChatrooms(userid,function(error,result){
-        if(error){
-          res.send(error);
+      getFavChatroomId(userid,function(error,result){
+        if(result != null){
+          var roomid = result.[0].room_id;
+           getFavRoom(roomid,function(er,roomName){
+             if(roomName != null){
+                res.send("we got this far");
+             }
+           });
         }
-        else {
-          res.send(result);
-        }
-      })
+      });
     }
-  })
+  });
 });
 
 app.get('/chooseroom',function(req,res){
@@ -424,7 +426,7 @@ function getChatrooms(callback){
 
 //This will return the room_id of favorite favRooms
 // i still need to compare the room names with its id.
-function getFavChatrooms(userid,callback){
+function getFavChatroomId(userid,callback){
   const client = new Client({
     connectionString: process.env.DATABASE_URL,
     ssl: true,
@@ -438,7 +440,42 @@ function getFavChatrooms(userid,callback){
       callback(err,null);
     }
 
-    var qur = "SELECT room_id FROM public.user_room";
+    var qur = "SELECT room_id FROM public.user_room WHERE user_id =\'" + userid + "\'";
+    console.log(qur);
+    var query = client.query(qur, function(err, result) {
+    // we are now done getting the data from the DB, disconnect the client
+      client.end(function(err) {
+        if (err) throw err;
+      });
+
+      if (err) {
+      console.log(qur);
+      console.log("Error in query: ")
+      console.log(err);
+      callback(err, null);
+    }
+
+    console.log("Found result: " + JSON.stringify(result.rows));
+    callback(null, result.rows);
+    });
+  });
+}
+
+function getFavRoom(roomIdObj,callback){
+  const client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  });
+
+  client.connect(function(err){
+    if(err){
+
+      console.log("was not able to connect to the DB: ");
+      console.log(err);
+      callback(err,null);
+    }
+
+    var qur = "SELECT * FROM public.chat_room";
     console.log(qur);
     var query = client.query(qur, function(err, result) {
     // we are now done getting the data from the DB, disconnect the client
