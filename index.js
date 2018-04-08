@@ -60,7 +60,8 @@ app.get('/ajaxcallFav', function(req,res){
 
   checkForUser(cookieId, function(req,userInfo){
     if(userInfo != null){
-      var userid = userInfo[0].user_id;
+        res.send("Found result: " + JSON.stringify(result.rows));
+      /*var userid = userInfo[0].user_id;
       getFavChatroomId(userid,function(error,result){
         if(result != null){
           var roomid = result[0].room_id;
@@ -73,7 +74,7 @@ app.get('/ajaxcallFav', function(req,res){
         else {
           res.send("no rooms found");
         }
-      });
+      });*/
     }
     else {
       res.send("no User found");
