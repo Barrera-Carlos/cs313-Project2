@@ -52,11 +52,11 @@ function createSubmit(form){
 function createDeleteBtn(form){
   var btn = document.createElement("BUTTON");
   btn.onclick=function(){alert("my click is working");};
-  form.appendChild(submit);
+  form.appendChild(btn);
   }
 
 function createAddBtn(form){
   var btn = document.createElement("BUTTON");
   btn.onclick=function(){alert("my click is working");};
-  form.appendChild(submit);
+  form.appendChild(btn);
 }
