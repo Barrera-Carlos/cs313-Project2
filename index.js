@@ -73,11 +73,11 @@ app.get('/ajaxcallFav', function(req,res){
                   }
                 }
               }
-              if(nameArr >= 1){
-                res.send(String(nameArr[0]));
+              if(nameArr.length >= 1){
+                res.send(JSON.stringify(nameArr));
               }
               else {
-                res.send("You dont have any Rooms Saved" + String(nameArr[0]));
+                res.send("You dont have any Rooms Saved");
               }
             }
           });
