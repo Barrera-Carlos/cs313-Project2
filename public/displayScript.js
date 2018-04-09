@@ -54,6 +54,7 @@ function populateForm(form,data){
     form.appendChild(input);
     form.appendChild(text);
     form.insertBefore(br,input);
+  }
 }
 
 function createSubmit(form){
