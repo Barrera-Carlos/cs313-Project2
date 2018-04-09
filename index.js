@@ -103,7 +103,7 @@ app.get('/enterRoom',function(req,res){
 });
 
 app.get('/addRoom',function(req,res){
-  var newRoom = req.query.room;
+  var newRoom = req.query.mytext;
   /*addRoom(newRoom, function(error,result){
     if(error == null && result == null){
       res.sendFile(__dirname + '/public/chooseRoom.html');
