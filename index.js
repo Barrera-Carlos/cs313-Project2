@@ -74,7 +74,7 @@ app.get('/ajaxcallFav', function(req,res){
                 }
               }
               if(nameArr.length >= 1){
-                res.send(JSON.stringify(nameArr));
+                res.send(nameArr);
               }
               else {
                 res.send("You dont have any Rooms Saved");
