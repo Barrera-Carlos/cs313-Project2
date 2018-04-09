@@ -104,7 +104,7 @@ app.get('/enterRoom',function(req,res){
 
 app.get('/addRoom',function(req,res){
   var newRoom = req.query.mytext;
-  /*addRoom(newRoom, function(error,result){
+  addRoom(newRoom, function(error,result){
     if(error == null && result == null){
       res.sendFile(__dirname + '/public/chooseRoom.html');
     }
@@ -112,9 +112,7 @@ app.get('/addRoom',function(req,res){
       //figure our a good error
       res.sendFile(__dirname + '/public/chooseRoom.html');
     }
-  });*/
-  console.log(newRoom);
-  res.sendFile(__dirname + '/public/chooseRoom.html');
+  });
 })
 
 function signUp(req,res){
