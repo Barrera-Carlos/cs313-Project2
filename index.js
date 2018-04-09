@@ -102,6 +102,10 @@ app.get('/enterRoom',function(req,res){
   res.send(currentRoom);
 });
 
+app.get('/addRoom'function(req,res){
+  res.sendFile(__dirname + '/public/chooseRoom.html');
+})
+
 function signUp(req,res){
   var userName = req.query.name;
   var displayName = req.query.Dname;
