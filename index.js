@@ -22,7 +22,6 @@ app.use(session({
   }
 }));
 
-
 app.use(express.static(path.join(__dirname, '/public')));
 
 app.set('views', path.join(__dirname, 'views'));
@@ -139,6 +138,29 @@ app.get('/addRoomToFav',function(req,res){
       }
     });
 });
+
+app.get('/deleteRoom',function(req,res){
+  var cookieId = req.session.id;
+  var room = req.query.rooms[0];
+  getUserId(cookieId,function(err,respond){
+    if(err == null){
+      var roomInfo = {userId: respond[0].user_id, roomId: room};
+      deleteRoom(roomInfo, function(error,result){
+        if(error == null){
+          res.sendFile(__dirname + '/public/chooseRoom.html');
+        }
+        else {
+          console.log("could not delete room");
+          res.sendFile(__dirname + '/public/chooseRoom.html');
+        }
+      })
+    }
+    else {
+      console.log("no user ID");
+      res.sendFile(__dirname + '/public/chooseRoom.html');
+    }
+  });
+})
 
 function signUp(req,res){
   var userName = req.query.name;
@@ -634,6 +656,39 @@ function addFavRoom(roomInfo, callback){
     }
 
     var qur = "INSERT INTO public.user_room (user_id,room_id) VALUES ("+roomInfo.userId+","+roomInfo.roomId+")";
+    console.log(qur);
+    var query = client.query(qur, function(err, result) {
+    // we are now done getting the data from the DB, disconnect the client
+      client.end(function(err) {
+        if (err) throw err;
+      });
+
+      if (err) {
+      console.log(qur);
+      console.log("Error in query: ")
+      console.log(err);
+      callback(err, null);
+    }
+    callback(null, null);
+    });
+  });
+}
+
+function deleteRoom(roomInfo, callback){
+  const client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  });
+
+  client.connect(function(err){
+    if(err){
+
+      console.log("was not able to connect to the DB: ");
+      console.log(err);
+      callback(err,null);
+    }
+
+    var qur = "DELETE FROM public.user_room WHERE user_id =\'"+roomInfo.userId+"\' AND room_if =\'"+roomInfo.roomId+"\'";
     console.log(qur);
     var query = client.query(qur, function(err, result) {
     // we are now done getting the data from the DB, disconnect the client
