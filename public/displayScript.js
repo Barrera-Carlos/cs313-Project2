@@ -51,7 +51,7 @@ function createSubmit(form){
 
 function createDeleteBtn(form){
   var btn = document.createElement("BUTTON");
-  btn.innerHTML = "Delete Room";
+  btn.innerHTML = "Delete Chat Room";
   btn.onclick=function(){alert("my click is working");};
   form.appendChild(btn);
   }
