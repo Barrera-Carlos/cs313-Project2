@@ -44,7 +44,7 @@ function buildRoomForm(){
 }
 
 function populateForm(form,data){
-  for(var i = 0; i<favRoomName.length; i++){
+  for(var i = 0; i<data.length; i++){
     var br = document.createElement("BR");
     var input = document.createElement("INPUT");
     input.setAttribute('type', 'radio');
