@@ -20,12 +20,7 @@ function buildRoomForm(){
           favForm.appendChild(text);
           favForm.insertBefore(br,input);
         }
-        var submit = document.createElement("INPUT");
-        var br = document.createElement("BR");
-        submit.setAttribute('type','submit');
-        submit.setAttribute('value', 'Select Room');
-        favForm.appendChild(submit);
-        favForm.insertBefore(br,submit);
+        createSubmit(favForm);
         });
       for(var i = 0; i<data.length; i++){
         var br = document.createElement("BR");
@@ -38,12 +33,16 @@ function buildRoomForm(){
         form.appendChild(text);
         form.insertBefore(br,input);
       }
-      var submit = document.createElement("INPUT");
-      var br = document.createElement("BR");
-      submit.setAttribute('type','submit');
-      submit.setAttribute('value', 'Select Room');
-      form.appendChild(submit);
-      form.insertBefore(br,submit);
+      createSubmit(form);
       }
     });
+}
+
+function createSubmit(form){
+  var submit = document.createElement("INPUT");
+  var br = document.createElement("BR");
+  submit.setAttribute('type','submit');
+  submit.setAttribute('value', 'Select Room');
+  form.appendChild(submit);
+  form.insertBefore(br,submit);
 }
