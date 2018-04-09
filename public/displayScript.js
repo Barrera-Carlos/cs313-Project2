@@ -8,7 +8,6 @@ function buildRoomForm(){
   $.get("/ajaxcall", function(data, status){
     if(data.length > 0){
       $.get("/ajaxcallFav", function(favRoomName, status){
-        alert(favRoomName);
         var roomNameArr = JSON.parse(favRoomName);
         for(var i = 0; i<roomNameArr.length; i++){
           var br = document.createElement("BR");
