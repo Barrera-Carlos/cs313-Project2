@@ -120,9 +120,9 @@ app.get('/addRoom',function(req,res){
 app.get('/addRoomToFav',function(req,res){
   var room = req.query.rooms[0];
     var cookieId = req.session.id;
-    getUserId(cookieId,function(err,res){
+    getUserId(cookieId,function(err,respond){
       if(err == null){
-        var roomInfo = {userId: res[0].user_id, roomId: room};
+        var roomInfo = {userId: respond[0].user_id, roomId: room};
         addFavRoom(roomInfo, function(error, result){
           if(error == null){
             res.sendFile(__dirname + '/public/chooseRoom.html');
