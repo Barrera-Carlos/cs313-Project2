@@ -61,12 +61,13 @@ app.get('/ajaxcallFav', function(req,res){
   getUserId(cookeId, function(req1,userId){
     if(userId != null){
       var id = userId[0].user_id
-      getFavChatroomId(id,function(error,result){
+      getFavRoomId(id,function(error,result){
         if(result != null){
-          var roomid = result[0].room_id;
-          getFavRoom(roomid,function(er,roomName){
+          var roomid = JSON.stringify(result[0].room_id);
+          getFavRoomName(function(er,roomName){
             if(roomName != null){
-              res.send("we got this far");
+              var roomname = JSON.stringify(roomName[0].room_name);
+              res.send(roomid + roomname);
             }
           });
             }
@@ -464,9 +465,7 @@ function getChatrooms(callback){
   });
 }
 
-//This will return the room_id of favorite favRooms
-// i still need to compare the room names with its id.
-function getFavChatroomId(userid,callback){
+function getFavRoomId(userid,callback){
   const client = new Client({
     connectionString: process.env.DATABASE_URL,
     ssl: true,
@@ -501,7 +500,7 @@ function getFavChatroomId(userid,callback){
   });
 }
 
-function getFavRoom(roomIdObj,callback){
+function getFavRoomName(callback){
   const client = new Client({
     connectionString: process.env.DATABASE_URL,
     ssl: true,
