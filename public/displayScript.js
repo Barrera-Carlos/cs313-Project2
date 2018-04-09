@@ -20,8 +20,8 @@ function buildRoomForm(){
           var text = document.createTextNode(String(favRoomName[i].name));
           favForm.appendChild(input);
           favForm.appendChild(text);
-          favForm.insertBefore(br,input);*/
-        }
+          favForm.insertBefore(br,input);
+        }*/
         createSubmit(favForm);
         createDeleteBtn(favForm);
         });
@@ -35,8 +35,8 @@ function buildRoomForm(){
         var text = document.createTextNode(String(data[i].room_name));
         form.appendChild(input);
         form.appendChild(text);
-        form.insertBefore(br,input);*/
-      }
+        form.insertBefore(br,input);
+      }*/
       createSubmit(form);
       createAddBtn(form);
       }
