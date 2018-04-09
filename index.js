@@ -75,9 +75,8 @@ app.get('/ajaxcallFav', function(req,res){
                 }
               }
               if(nameArr.length >= 1){
-                //res.send(JSON.stringify(nameArr));
-                console.log(JSON.stringify(nameArr));
-                res.send(nameArr);
+                console.log("the obj =" + JSON.stringify(nameArr));
+                res.send(JSON.stringify(nameArr));
               }
               else {
                 res.send("You dont have any Rooms Saved");
