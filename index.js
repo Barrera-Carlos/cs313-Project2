@@ -63,16 +63,26 @@ app.get('/ajaxcallFav', function(req,res){
       var id = userId[0].user_id
       getFavRoomId(id,function(error,result){
         if(result != null){
-          var roomid = JSON.stringify(result[0].room_id);
           getFavRoomName(function(er,roomName){
             if(roomName != null){
-              var roomname = JSON.stringify(roomName[0].room_name);
-              res.send(roomid + roomname);
+              var nameArr = new Array();
+              for(var i = 0; i < result.length; i ++){
+                for(var j = 0; j < result.length; j++){
+                  if(result[i].room_id == roomName[j].id)
+                  nameArr.push(roomName[j].room_name)
+                }
+              }
+              if(nameArr >= 1){
+                res.send(JSON.stringify(nameArr));
+              }
+              else {
+                res.send("You dont have any Rooms Saved");
+              }
             }
           });
             }
           else {
-            res.send("no rooms found");
+            res.send("You dont have any Rooms Saved");
           }
           });
         }
