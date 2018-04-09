@@ -51,6 +51,7 @@ function createSubmit(form){
 
 function createDeleteBtn(form){
   var btn = document.createElement("BUTTON");
+  btn.setAttribute('type','button');
   btn.innerHTML = "Delete Chat Room";
   btn.onclick=function(){alert("my click is working");};
   form.appendChild(btn);
@@ -58,6 +59,7 @@ function createDeleteBtn(form){
 
 function createAddBtn(form){
   var btn = document.createElement("BUTTON");
+  btn.setAttribute('type','button');
   btn.innerHTML = "Add Favorite Room";
   btn.onclick=function(){alert("my click is working");};
   form.appendChild(btn);
