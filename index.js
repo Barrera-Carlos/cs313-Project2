@@ -102,7 +102,7 @@ app.get('/enterRoom',function(req,res){
   res.send(currentRoom);
 });
 
-app.get('/addRoom'function(req,res){
+app.get('/addRoom',function(req,res){
   res.sendFile(__dirname + '/public/chooseRoom.html');
 })
 
