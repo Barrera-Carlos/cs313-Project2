@@ -493,7 +493,7 @@ function getChatrooms(callback){
       callback(err,null);
     }
 
-    var qur = "SELECT room_name FROM public.chat_room";
+    var qur = "SELECT * FROM public.chat_room";
     console.log(qur);
     var query = client.query(qur, function(err, result) {
     // we are now done getting the data from the DB, disconnect the client
@@ -647,8 +647,6 @@ function addFavRoom(roomInfo, callback){
       console.log(err);
       callback(err, null);
     }
-
-    console.log("Found result: " + JSON.stringify(result.rows));
     callback(null, null);
     });
   });
