@@ -69,7 +69,7 @@ app.get('/ajaxcallFav', function(req,res){
               for(var i = 0; i < result.length; i ++){
                 for(var j = 0; j < roomName.length; j++){
                   if(result[i].room_id == roomName[j].id){
-                    var roomInfo = {id:roomName[j].id, name:roomName[j].room_name};
+                    var roomInfo = {id:roomName[j].id, room_name:roomName[j].room_name};
                     nameArr.push(roomInfo);
                   }
                 }
