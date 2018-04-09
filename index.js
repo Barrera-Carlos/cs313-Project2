@@ -69,12 +69,14 @@ app.get('/ajaxcallFav', function(req,res){
               for(var i = 0; i < result.length; i ++){
                 for(var j = 0; j < roomName.length; j++){
                   if(result[i].room_id == roomName[j].id){
-                    nameArr.push(roomName[j].room_name);
+                    var roomInfo = {id:roomName[j].id, name:roomName[j].room_name};
+                    nameArr.push(roomInfo);
                   }
                 }
               }
               if(nameArr.length >= 1){
-                res.send(JSON.stringify(nameArr));
+                //res.send(JSON.stringify(nameArr));
+                res.send(nameArr);
               }
               else {
                 res.send("You dont have any Rooms Saved");
@@ -113,7 +115,20 @@ app.get('/addRoom',function(req,res){
       res.sendFile(__dirname + '/public/chooseRoom.html');
     }
   });
-})
+});
+
+app.get('/addRoomToFav',function(req,res){
+  var room = req.query.rooms[0];
+    var cookieId = req.session.id;
+    getUserId(cookieId,function(err,res){
+      if(err == null){
+        var roomInfo = {userId: res[0].user_id, roomName: room};
+        addFavRoom(roomInfo, function(error, result){
+
+        });
+      }
+    });
+});
 
 function signUp(req,res){
   var userName = req.query.name;
@@ -560,6 +575,41 @@ function getFavRoomName(callback){
 }
 
 function addRoom(newRoomName, callback){
+  const client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  });
+
+  client.connect(function(err){
+    if(err){
+
+      console.log("was not able to connect to the DB: ");
+      console.log(err);
+      callback(err,null);
+    }
+
+    var qur = "INSERT INTO public.chat_room (room_name) VALUES (\'"+newRoomName+"\')";
+    console.log(qur);
+    var query = client.query(qur, function(err, result) {
+    // we are now done getting the data from the DB, disconnect the client
+      client.end(function(err) {
+        if (err) throw err;
+      });
+
+      if (err) {
+      console.log(qur);
+      console.log("Error in query: ")
+      console.log(err);
+      callback(err, null);
+    }
+
+    console.log("Found result: " + JSON.stringify(result.rows));
+    callback(null, null);
+    });
+  });
+}
+
+function addFavRoom(roomInfo, callback){
   const client = new Client({
     connectionString: process.env.DATABASE_URL,
     ssl: true,
