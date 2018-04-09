@@ -688,7 +688,7 @@ function deleteRoom(roomInfo, callback){
       callback(err,null);
     }
 
-    var qur = "DELETE FROM public.user_room WHERE user_id =\'"+roomInfo.userId+"\' AND room_if =\'"+roomInfo.roomId+"\'";
+    var qur = "DELETE FROM public.user_room WHERE user_id =\'"+roomInfo.userId+"\' AND room_id =\'"+roomInfo.roomId+"\'";
     console.log(qur);
     var query = client.query(qur, function(err, result) {
     // we are now done getting the data from the DB, disconnect the client
