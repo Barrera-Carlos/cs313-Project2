@@ -67,9 +67,10 @@ app.get('/ajaxcallFav', function(req,res){
             if(roomName != null){
               var nameArr = new Array();
               for(var i = 0; i < result.length; i ++){
-                for(var j = 0; j < result.length; j++){
-                  if(result[i].room_id == roomName[j].id)
-                  nameArr.push(roomName[j].room_name)
+                for(var j = 0; j < roomName.length; j++){
+                  if(result[i].room_id == roomName[j].id){
+                    nameArr.push(roomName[j].room_name);
+                  }
                 }
               }
               if(nameArr >= 1){
