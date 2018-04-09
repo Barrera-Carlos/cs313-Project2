@@ -9,13 +9,14 @@ function buildRoomForm(){
     if(data.length > 0){
       $.get("/ajaxcallFav", function(favRoomName, status){
         alert(favRoomName);
-        for(var i = 0; i<favRoomName.length; i++){
+        var roomNameArr = JSON.parse(favRoomName);
+        for(var i = 0; i<roomNameArr.length; i++){
           var br = document.createElement("BR");
           var input = document.createElement("INPUT");
           input.setAttribute('type', 'radio');
           input.setAttribute('name','rooms[]');
-          input.setAttribute('value',String(favRoomName[i]));
-          var text = document.createTextNode(String(favRoomName[i]));
+          input.setAttribute('value',String(roomNameArr[i]));
+          var text = document.createTextNode(String(roomNameArr[i]));
           favForm.appendChild(input);
           favForm.appendChild(text);
           favForm.insertBefore(br,input);
