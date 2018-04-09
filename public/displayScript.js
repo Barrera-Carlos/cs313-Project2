@@ -21,6 +21,7 @@ function buildRoomForm(){
           favForm.insertBefore(br,input);
         }
         createSubmit(favForm);
+        createDeleteBtn(favForm);
         });
       for(var i = 0; i<data.length; i++){
         var br = document.createElement("BR");
@@ -34,6 +35,7 @@ function buildRoomForm(){
         form.insertBefore(br,input);
       }
       createSubmit(form);
+      createAddBtn(form);
       }
     });
 }
@@ -45,4 +47,16 @@ function createSubmit(form){
   submit.setAttribute('value', 'Select Room');
   form.appendChild(submit);
   form.insertBefore(br,submit);
+}
+
+function createDeleteBtn(form){
+  var btn = document.createElement("BUTTON");
+  btn.onclick=function(){alert("my click is working");};
+  form.appendChild(submit);
+  }
+
+function createAddBtn(form){
+  var btn = document.createElement("BUTTON");
+  btn.onclick=function(){alert("my click is working");};
+  form.appendChild(submit);
 }
