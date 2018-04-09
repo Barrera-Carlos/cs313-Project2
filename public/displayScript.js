@@ -51,12 +51,14 @@ function createSubmit(form){
 
 function createDeleteBtn(form){
   var btn = document.createElement("BUTTON");
+  btn.innerHTML = "Delete Room";
   btn.onclick=function(){alert("my click is working");};
   form.appendChild(btn);
   }
 
 function createAddBtn(form){
   var btn = document.createElement("BUTTON");
+  btn.innerHTML = "Add Favorite Room";
   btn.onclick=function(){alert("my click is working");};
   form.appendChild(btn);
 }
