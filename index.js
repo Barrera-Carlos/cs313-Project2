@@ -103,7 +103,17 @@ app.get('/enterRoom',function(req,res){
 });
 
 app.get('/addRoom',function(req,res){
-  res.sendFile(__dirname + '/public/chooseRoom.html');
+  var newRoom = req.query.room;
+  addRoom(newRoom, function(error,result){
+    if(error == null && result == null){
+      res.sendFile(__dirname + '/public/chooseRoom.html');
+    }
+    else {
+      //figure our a good error
+      res.sendFile(__dirname + '/public/chooseRoom.html');
+    }
+  });
+
 })
 
 function signUp(req,res){
@@ -546,6 +556,41 @@ function getFavRoomName(callback){
 
     console.log("Found result: " + JSON.stringify(result.rows));
     callback(null, result.rows);
+    });
+  });
+}
+
+function addRoom(newRoomName, callback){
+  const client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  });
+
+  client.connect(function(err){
+    if(err){
+
+      console.log("was not able to connect to the DB: ");
+      console.log(err);
+      callback(err,null);
+    }
+
+    var qur = "INSERT INTO public.chat_room (room_name) VALUES (\'"+newRoomName+"\')";
+    console.log(qur);
+    var query = client.query(qur, function(err, result) {
+    // we are now done getting the data from the DB, disconnect the client
+      client.end(function(err) {
+        if (err) throw err;
+      });
+
+      if (err) {
+      console.log(qur);
+      console.log("Error in query: ")
+      console.log(err);
+      callback(err, null);
+    }
+
+    console.log("Found result: " + JSON.stringify(result.rows));
+    callback(null, null);
     });
   });
 }
