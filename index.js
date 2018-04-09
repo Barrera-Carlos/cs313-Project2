@@ -76,7 +76,7 @@ app.get('/ajaxcallFav', function(req,res){
                 res.send(JSON.stringify(nameArr));
               }
               else {
-                res.send("You dont have any Rooms Saved");
+                res.send("You dont have any Rooms Saved" + JSON.stringify(nameArr));
               }
             }
           });
