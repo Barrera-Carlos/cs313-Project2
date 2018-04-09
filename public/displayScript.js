@@ -8,36 +8,14 @@ function buildRoomForm(){
   $.get("/ajaxcall", function(data, status){
     if(data.length > 0){
       $.get("/ajaxcallFav", function(favRoomName, status){
-
+        //these  functions will create the form for the favored rooms
         populateForm(favForm,favRoomName);
-        //var roomNameArr = JSON.parse(favRoomName);
-      /*  for(var i = 0; i<favRoomName.length; i++){
-          var br = document.createElement("BR");
-          var input = document.createElement("INPUT");
-          input.setAttribute('type', 'radio');
-          input.setAttribute('name','rooms[]');
-          input.setAttribute('value',String(favRoomName[i].id));
-          var text = document.createTextNode(String(favRoomName[i].name));
-          favForm.appendChild(input);
-          favForm.appendChild(text);
-          favForm.insertBefore(br,input);
-        }*/
-        createSubmit(favForm);
+        createSubmitBtn(favForm);
         createDeleteBtn(favForm);
         });
-        populateForm(form,data);
-      /*for(var i = 0; i<data.length; i++){
-        var br = document.createElement("BR");
-        var input = document.createElement("INPUT");
-        input.setAttribute('type', 'radio');
-        input.setAttribute('name','rooms[]');
-        input.setAttribute('value',String(data[i].id));
-        var text = document.createTextNode(String(data[i].room_name));
-        form.appendChild(input);
-        form.appendChild(text);
-        form.insertBefore(br,input);
-      }*/
-      createSubmit(form);
+      //these  functions will create the form for public rooms
+      populateForm(form,data);
+      createSubmitBtn(form);
       createAddBtn(form);
       }
     });
@@ -57,7 +35,7 @@ function populateForm(form,data){
   }
 }
 
-function createSubmit(form){
+function createSubmitBtn(form){
   var submit = document.createElement("INPUT");
   var br = document.createElement("BR");
   submit.setAttribute('type','submit');

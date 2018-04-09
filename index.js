@@ -122,10 +122,20 @@ app.get('/addRoomToFav',function(req,res){
     var cookieId = req.session.id;
     getUserId(cookieId,function(err,res){
       if(err == null){
-        var roomInfo = {userId: res[0].user_id, roomName: room};
+        var roomInfo = {userId: res[0].user_id, roomId: room};
         addFavRoom(roomInfo, function(error, result){
-
+          if(error == null){
+            res.sendFile(__dirname + '/public/chooseRoom.html');
+          }
+          else {
+            console.log("error in addig fav room");
+            res.sendFile(__dirname + '/public/chooseRoom.html');
+          }
         });
+      }
+      else {
+        console.log("no user ID");
+        res.sendFile(__dirname + '/public/chooseRoom.html');
       }
     });
 });
@@ -623,7 +633,7 @@ function addFavRoom(roomInfo, callback){
       callback(err,null);
     }
 
-    var qur = "INSERT INTO public.chat_room (room_name) VALUES (\'"+newRoomName+"\')";
+    var qur = "INSERT INTO public.user_room (user_id,room_id) VALUES ("+roomInfo.userId+","+roomInfo.roomId+")";
     console.log(qur);
     var query = client.query(qur, function(err, result) {
     // we are now done getting the data from the DB, disconnect the client
