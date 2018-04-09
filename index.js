@@ -56,31 +56,30 @@ app.get('/ajaxcall',function(req,res){
 });
 
 app.get('/ajaxcallFav', function(req,res){
-  var cookieId = req.session.id;
+  var cookeId = req.session.id;
 
-  checkForUser(cookieId, function(req,userInfo){
-    if(userInfo != null){
-        res.send("Found result: " + JSON.stringify(userInfo));
-      /*var userid = userInfo[0].user_id;
-      getFavChatroomId(userid,function(error,result){
+  getUserId(cookeId, function(req1,userId){
+    if(userId != null){
+      var id = userId[0].user_id
+      getFavChatroomId(id,function(error,result){
         if(result != null){
           var roomid = result[0].room_id;
-           getFavRoom(roomid,function(er,roomName){
-             if(roomName != null){
-                res.send("we got this far");
-             }
-           });
+          getFavRoom(roomid,function(er,roomName){
+            if(roomName != null){
+              res.send("we got this far");
+            }
+          });
+            }
+          else {
+            res.send("no rooms found");
+          }
+          });
         }
         else {
-          res.send("no rooms found");
+          res.send("no User found");
         }
-      });*/
-    }
-    else {
-      res.send("no User found");
-    }
-  });
-});
+      });
+    });
 
 app.get('/chooseroom',function(req,res){
   currentRoom = req.query.rooms[0];
@@ -147,7 +146,6 @@ function addUserToDb(userName,displayName,password,callback){
     });
   }
 
-
 function logIn(req,res){
     var userName = req.query.name;
     var password = req.query.psw;
@@ -207,6 +205,41 @@ function logIn(req,res){
             }
           });
   	}
+  });
+}
+
+function getUserId(id,callback){
+  const client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  });
+
+  client.connect(function(err){
+    if(err){
+
+      console.log("was not able to connect to the DB: ");
+      console.log(err);
+      callback(err,null);
+    }
+
+    var qur = "SELECT user_id FROM public.sessionStore WHERE cookie_id = "+"\'"+ id +"\'";
+    console.log(qur);
+    var query = client.query(qur, function(err, result) {
+    // we are now done getting the data from the DB, disconnect the client
+      client.end(function(err) {
+        if (err) throw err;
+      });
+
+      if (err) {
+      console.log(qur);
+      console.log("Error in query: ")
+      console.log(err);
+      callback(err, null);
+    }
+
+    console.log("Found result: " + JSON.stringify(result.rows));
+    callback(null, result.rows);
+    });
   });
 }
 
