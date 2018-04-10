@@ -239,12 +239,12 @@ function logIn(req,res){
         var cookieId = req.session.id;
         checkForUser(id, function(error, result){
           if(error || result == null){
-            res.status(500).json({success: false, data: error});
+              res.status(500).json({success: false, data: "User not found"});
           }
           else if (result.length == 0 && error == null) {
             queryCookie(id,disName,cookieId, function(error){
               if (error) {
-                res.status(500).json({success: false, data: error});
+                res.status(500).json({success: false, data: "User not found"});
               }
               else {
                 res.sendFile( __dirname + "/public/" +'chooseRoom.html');
