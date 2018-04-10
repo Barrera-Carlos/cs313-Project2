@@ -9,9 +9,11 @@ function buildRoomForm(){
     if(data.length > 0){
       $.get("/ajaxcallFav", function(favRoomName, status){
         if(favRoomName[0].room_name != "undefined"){
+          alert(favRoomName[0].room_name);
           populateForm(favForm,favRoomName);
         }
         //these  functions will create the form for the favored rooms
+
         createSubmitBtn(favForm);
         createDeleteBtn(favForm);
         });
