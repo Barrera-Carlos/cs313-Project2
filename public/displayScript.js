@@ -8,7 +8,7 @@ function buildRoomForm(){
   $.get("/ajaxcall", function(data, status){
     if(data.length > 0){
       $.get("/ajaxcallFav", function(favRoomName, status){
-        if(favRoomName[0].room_name != "undefined"){
+        if(favRoomName[0].room_name != undefined){
           alert(favRoomName[0].room_name);
           populateForm(favForm,favRoomName);
         }
