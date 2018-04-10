@@ -2,19 +2,33 @@
 <html>
 <head>
 <title>Chat Room Sign Up</title>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
 </head>
 <body>
 
-<form action="/logIn" method="get">
-User Name:</br>
-<input type="text" name="name"></br>
-Password:</br>
-<input type="password" name="psw"></br>
-<input type="submit">
-</form>
-<a href="/signUpPage">SignUp</a>
-<!--form action="/signUpPage" method="get">
-  <input type="submit" value="SignUp">
-</form-->
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-4">
+      <form action="/logIn" method="get">
+      User Name:</br>
+      <input type="text" name="name"></br>
+      Password:</br>
+      <input type="password" name="psw"></br>
+      <input type="submit">
+      </form>
+      <a href="/signUpPage">SignUp</a>
+    </div>
+    <div class="col-md-4">
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
