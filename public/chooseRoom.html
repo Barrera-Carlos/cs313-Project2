@@ -2,18 +2,46 @@
 <html>
 <head>
 <title>Chat Room Sign Up</title>
-<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="displayScript.js"></script>
 </head>
 <body onload="buildRoomForm()">
 
-<form action="/addRoom" method="get">
-Add Table:</br>
-<input type="text" name="mytext" required />
-<input type="submit">
-</form>
+<div class="container-fluid">
 
-<div id="Allrooms">
+  <div class="row">
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-4">
+      <form action="/addRoom" method="get">
+        <div class="form-group">
+          <label for="usr">Add Table:</label>
+          <input type="text" class="form-control" name="mytext" id="usr">
+        </div>
+        <input type="submit" class="btn btn-primary">
+      </form>
+    </div>
+    <div class="col-md-4">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <form action="/chooseroom" method="get" id="listOfInput">
+      </form>
+    </div>
+    <div class="col-md-6">
+      <form action="/chooseroom" method="get" id="listOfFavInput">
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<!--div id="Allrooms">
   <form action="/chooseroom" method="get" id="listOfInput">
 
   </form>
@@ -23,6 +51,6 @@ Add Table:</br>
   <form action="/chooseroom" method="get" id="listOfFavInput">
 
   </form>
-</div>
+</div-->
 </body>
 </html>
