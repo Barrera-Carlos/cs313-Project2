@@ -8,8 +8,10 @@ function buildRoomForm(){
   $.get("/ajaxcall", function(data, status){
     if(data.length > 0){
       $.get("/ajaxcallFav", function(favRoomName, status){
+        if(favRoomName[0].room_name != "undefined"){
+          populateForm(favForm,favRoomName);
+        }
         //these  functions will create the form for the favored rooms
-        populateForm(favForm,favRoomName);
         createSubmitBtn(favForm);
         createDeleteBtn(favForm);
         });
@@ -52,7 +54,6 @@ function createDeleteBtn(form){
     var favForm = document.getElementById("listOfFavInput");
     var formSize = favForm.elements.length;
     if(formSize > 3){
-      alert(String(formSize));
       favForm.action = "/deleteRoom";
       favForm.submit();
     }
