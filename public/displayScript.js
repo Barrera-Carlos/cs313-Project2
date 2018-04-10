@@ -51,6 +51,7 @@ function createDeleteBtn(form){
   btn.onclick=function(){
     var favForm = document.getElementById("listOfFavInput");
     if(favForm.elements.length > 1){
+      alert("You need a minimum of a favorite room ")
       favForm.action = "/deleteRoom"
       favForm.submit();
     }
