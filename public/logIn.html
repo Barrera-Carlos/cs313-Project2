@@ -17,10 +17,20 @@
     </div>
     <div class="col-md-4">
       <form action="/logIn" method="get">
+      <!--br>
       User Name:</br>
       <input type="text" name="name"></br>
       Password:</br>
-      <input type="password" name="psw"></br>
+      <input type="password" name="psw"></br-->
+
+      <div class="form-group">
+      <label for="usr">User Name:</label>
+      <input type="text" class="form-control" name="name" id="usr">
+    </div>
+    <div class="form-group">
+      <label for="pwd">Password:</label>
+      <input type="password" class="form-control" name="psw" id="pwd">
+    </div>
       <input type="submit">
       </form>
       <a href="/signUpPage">SignUp</a>
