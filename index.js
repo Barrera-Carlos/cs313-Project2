@@ -407,7 +407,7 @@ function getUser(userName,password, callback){
   				if (err) throw err;
   			});
 
-        if (err) {
+        if (err || result.rows[0].length == 0) {
         console.log(qur);
 				console.log("Error in query: ")
 				console.log(err);
