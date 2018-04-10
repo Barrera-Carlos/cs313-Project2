@@ -2,9 +2,14 @@
 <html>
 <head>
 <title>Chat Room Sign Up</title>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-  
+
 <form action="/signUp" method="get">
 User Name:</br>
 <input type="text" name="name"></br>
@@ -14,6 +19,33 @@ Password:</br>
 <input type="password" name="psw"></br>
 <input type="submit">
 </form>
+
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-4" style="padding-top: 100px">
+      <form action="/signUp" method="get">
+      <div class="form-group">
+      <label for="usr">User Name:</label>
+      <input type="text" class="form-control" name="name" id="usr">
+    </div>
+    <div class="form-group">
+    <label for="usr">Display Name:</label>
+    <input type="text" class="form-control" name="Dname" id="usr">
+  </div>
+    <div class="form-group">
+      <label for="pwd">Password:</label>
+      <input type="password" class="form-control" name="psw" id="pwd">
+    </div>
+      <input type="submit" class="btn btn-primary">
+      </form>
+    </div>
+    <div class="col-md-4">
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
