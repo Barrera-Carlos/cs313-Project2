@@ -50,8 +50,14 @@ function createDeleteBtn(form){
   btn.innerHTML = "Delete Chat Room";
   btn.onclick=function(){
     var favForm = document.getElementById("listOfFavInput");
-    favForm.action = "/deleteRoom"
-    favForm.submit();
+    if(favForm.elements.length > 0){
+      favForm.action = "/deleteRoom"
+      favForm.submit();
+    }
+    else {
+      alert("you dont have any rooms to delete")
+    }
+
   };
   form.appendChild(btn);
   }
