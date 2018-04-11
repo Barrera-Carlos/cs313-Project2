@@ -416,12 +416,8 @@ function getUser(userName,password, callback){
 
       console.log("Found result: " + JSON.stringify(result.rows));
       var length = result.rows.length;
-      console.log(length);
       if (length == 0){
         callback(err, null);
-      }
-      if(length == 0){
-        console.log("hahahahahha")
       }
       else {
         var hash = result.rows[0].password;
@@ -437,7 +433,7 @@ function getUser(userName,password, callback){
             callback(null,false)
           }
         })
-      }  
+      }
       });
     });
   }
