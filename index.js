@@ -415,6 +415,9 @@ function getUser(userName,password, callback){
 			}
 
       console.log("Found result: " + JSON.stringify(result.rows));
+      if (result.rows == undefined){
+        callback(err, null);
+      }
       var hash = result.rows[0].password;
       console.log("Found result: " + hash);
       bcrypt.compare(password, hash, function(err, res){
