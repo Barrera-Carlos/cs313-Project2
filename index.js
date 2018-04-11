@@ -417,22 +417,27 @@ function getUser(userName,password, callback){
       console.log("Found result: " + JSON.stringify(result.rows));
       var length = result.rows.length;
       console.log(length);
-      if (!length){
+      if (length == 0){
         callback(err, null);
       }
-      var hash = result.rows[0].password;
-      bcrypt.compare(password, hash, function(err, res){
-        if(err){
-          console.log("issue when comparing password and hash res:"+ res);
-          callback(err,null);
-        }
-        else if(res == true){
-          callback(null, result.rows);
-        }
-        else{
-          callback(null,false)
-        }
-      })
+      if(length == 0){
+        console.log("hahahahahha")
+      }
+      else {
+        var hash = result.rows[0].password;
+        bcrypt.compare(password, hash, function(err, res){
+          if(err){
+            console.log("issue when comparing password and hash res:"+ res);
+            callback(err,null);
+          }
+          else if(res == true){
+            callback(null, result.rows);
+          }
+          else{
+            callback(null,false)
+          }
+        })
+      }  
       });
     });
   }
