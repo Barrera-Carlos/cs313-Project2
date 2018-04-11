@@ -415,6 +415,7 @@ function getUser(userName,password, callback){
 			}
 
       console.log("Found result: " + JSON.stringify(result.rows));
+      console.log(result.rows.length);
       if (result.rows.length == 0){
         callback(err, null);
       }
