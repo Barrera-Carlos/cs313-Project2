@@ -419,7 +419,6 @@ function getUser(userName,password, callback){
         callback(err, null);
       }
       var hash = result.rows[0].password;
-      console.log("Found result: " + hash);
       bcrypt.compare(password, hash, function(err, res){
         if(err){
           console.log("issue when comparing password and hash res:"+ res);
