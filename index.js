@@ -415,7 +415,7 @@ function getUser(userName,password, callback){
 			}
 
       console.log("Found result: " + JSON.stringify(result.rows));
-      if (result.rows){
+      if (result.rows.length == 0){
         callback(err, null);
       }
       var hash = result.rows[0].password;
